@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(22, 16, 16);
+  
+  font-family: Arial, sans-serif;
+  font-size: 0.5rem;
+  overflow: hidden; /* Prevents unnecessary scroll */
+}
+
+h1 {
+  color: white;
+}
