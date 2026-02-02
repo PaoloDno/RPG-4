@@ -7,8 +7,11 @@ const TitleScreen = {
 
   render(app) {
     app.innerHTML = `
+      <div class="full in-center col">
       <h1">🌟 My RPG Platform 🌟</h1>
       <button id="start-btn">Start Game</button>
+      <button id="load-btn">Load Game</button>
+      </div>
     `;
 
     document.getElementById("start-btn").addEventListener("click", () => {
@@ -19,3 +22,5 @@ const TitleScreen = {
 };
 
 export default TitleScreen;
+
+// Listen to EventBus

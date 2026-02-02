@@ -197,30 +197,32 @@ export const HeroList = {
     }
   },
 
-  Billy: {
-    name: "Billy",
+  Bach: {
+    name: "Bach",
     element: "wind",      
     level: 1,             
-    type: "Archer",
+    type: "Swordsman",
     rarity: 4,
 
     baseStats: {
-      str: 45,
+      str: 30,
       spd: 30,
-      dex: 35,
+      dex: 30,
+      agi: 30,
+      htl: 30
     },
 
     growthStats: {
-      str: 1.1,
+      str: 1.2,
       mgk: 1,
       sta: 1,
       mna: 1,
-      def: 1,
+      def: 1.2,
       res: 1,
-      hlt: 1,
-      spd: 1.5,
-      agi: 1.5,
-      dex: 1.5
+      hlt: 1.2,
+      spd: 1.2,
+      agi: 1.2,
+      dex: 1.2
     }
   },
 
