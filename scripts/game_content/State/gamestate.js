@@ -17,8 +17,19 @@ export const defaultPlayerGameState = {
       name: "Arin",
       class: "Mage",
       level: 1,
-      attributes: {},
-      skills: {},
+      attributes: {
+      hp,
+      maxhp: hp,
+      mp,
+      maxMp: mp,
+      sp,
+      maxSp: sp,
+      actionSpeed,
+      critR, critD,
+      armor, mgkRes
+      },
+      stats: { }
+      skills: [],
       equipment: {},
       exp: 0,
     }

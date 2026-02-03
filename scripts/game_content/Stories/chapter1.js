@@ -1,69 +1,196 @@
-import ManImg from "../../../assets/sprites/heroes/hoverPriest.png";
-import WomanImg from "../../../assets/sprites/heroes/hoverNinja.png";
-import DungeonImg from "../../../assets/sprites/bg/cave.jpg";
+// chapter1.js
+
+
+// portrait dialougetoo
+
+
+// getState party
+// even max is 4 it should be 8 array of name that is put in case there a single two or three only but its still ditrbuted fairly
+// []
+//
+//
 
 export const Chapter1 = [
+
   {
-    leftChar: { name: "Inn Woman", img: WomanImg },
-    rightChar: null,
-    speakerSide: "left",
+    leftChar: "GirlNpc",
     speakerName: "Inn Woman",
-    text: "Good Morning Adventurer Welcome to the base floor of tower dungeon",
-    background: DungeonImg
+    speakerSide: "left",
+    text: "Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
+    background: "Dungeon"
   },
-  // response party[0] - 1
-  // reponse party[1] - 2
-  // hope you have good rest and recover hp mn sp
-  // hp is your health mana is for magic and stamina point is well your stamina
-  // tells youyou can comback at the inn for the price of 10 gold to recover eveerything at once but at the cost of a single day
-  // response party[1] - 3
-  // reponse party[3] - 4
-  // btw do an errand for me
-  // reponse party[2] - 5
-  // Marisa creamy broth
-  // as thanks you can have this
-  // recieves creamy broth
-  // reponse party[0] - 6
-  // deliver this to the my sister in the market
-  // reponse party[0] - 7
-  // repons party [1] - 7
-  // response party[2] - 7
-  // repsonse party[3] - 7
+
+  {
+    system: true,
+    text: "You and your party feel fully rested."
+  },
+
+  {
+    system: true,
+    text: "HP, Mana, and Stamina fully restored."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    rightChar: "",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
+    background: "Dungeon"
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "You may rest here anytime for 10 gold. It restores everything but consumes one day."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "Actually... could you run an errand for me?"
+  },
+
+  {
+    system: true,
+    text: "Received Item: Creamy Broth"
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "Please deliver this to my sister in the market district."
+  }
+
+];
 
 
-  export const chapter1A 
-  // townmarket district background
-  // party[0] - 8
-  // party[1] - 9
-  // Marisa store background
-  // store girl greets you
-  // tells you about market
-  // gives you a single 2x hp potion and one mana and stamina potion
-  // you should go to the armory my sister is the finest smith
+export const Chapter1A = [
 
-  export const chapter1B
-  // visit armory and ask she tell you his busy
-  // you leave and then boom
-  // your party go back
-  // you help her stand up from fallen armor that fallin to hear
-  // woman syas shut up she just busy crafting a SSR lvl 80 weapon
-  // she keep quet and gives you an iron minthril dagger
-  // she says items crafted for gives you boost in stats as the weapon have mana inself that users can tap into
-  // but there level requirement or set requiremnt in order for it to be able to 
-  // are you getting all of this?
-  // just take it
-  // remembers she has an errand to do ask you to deliver some minthril dagger to the guild
+  {
+    system: true,
+    background: "TownMarket",
+    text: "You arrive at the market district."
+  },
 
-  export const chapter1C
-  // busy guild girl
-  // there a line of workers
-  // you enter the guild and met by the guild girl
-  // you deliver the items
-  // yo ugot register and now free to go the tower entrance
-  // told you the guild advacne and systemize in no longer give out subjugation quest but it automatically tally as long its inside the dungeon so pk and crime inside isnt done anymroe
-  // 
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Store Girl",
+    speakerSide: "left",
+    text: "Welcome adventurer! The market sells many useful supplies."
+  },
 
-  export const chapter1D
+  {
+    system: true,
+    text: "Received Items: HP Potion x2, Mana Potion x1, Stamina Potion x1"
+  },
 
-  // 
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Store Girl",
+    speakerSide: "left",
+    text: "You should visit the armory next. My sister is the finest smith in town."
+  }
+
+];
+
+ export const Chapter1B = [
+
+  {
+    system: true,
+    background: "Armory",
+    text: "You enter the armory."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Smith Woman",
+    speakerSide: "left",
+    text: "I'm busy forging an SSR Level 80 weapon!"
+  },
+
+  {
+    system: true,
+    text: "*CRASH* Armor collapses nearby."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Smith Woman",
+    speakerSide: "left",
+    text: "...Thanks for helping."
+  },
+
+  {
+    system: true,
+    text: "Received Weapon: Iron Mythril Dagger"
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Smith Woman",
+    speakerSide: "left",
+    text: "Crafted weapons contain mana and boost your stats."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Smith Woman",
+    speakerSide: "left",
+    text: "There are level and equipment requirements to unlock their power."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Smith Woman",
+    speakerSide: "left",
+    text: "Deliver these daggers to the Adventurer Guild for me."
+  }
+
+];
+
+ export const Chapter1C = [
+
+  {
+    system: true,
+    background: "Guild",
+    text: "You enter the Adventurer Guild."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Guild Receptionist",
+    speakerSide: "left",
+    text: "Welcome to the Adventurer Guild."
+  },
+
+  {
+    system: true,
+    text: "Daggers delivered."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Guild Receptionist",
+    speakerSide: "left",
+    text: "You are now officially registered."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Guild Receptionist",
+    speakerSide: "left",
+    text: "The guild now automatically records dungeon subjugations."
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Guild Receptionist",
+    speakerSide: "left",
+    text: "You may now enter the Tower Dungeon."
+  }
+
 ];

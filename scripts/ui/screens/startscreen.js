@@ -2,6 +2,7 @@
 import EventBus from "../../core/eventbus.js";
 import { HeroList } from "../../game_content/Entity/heroesList.js";
 import { getstate, setstate } from "../../game_content/SaveManager/savemange.js";
+import InstantializeCharacter from "../../logic/characters/InstantializeCharacter.js";
 
 /* =========================
    HELPERS
@@ -20,7 +21,9 @@ function renderHeroCards(keys) {
       return `
         <div class="hero-card">
           <input type="checkbox" id="hero-${key}" value="${key}" />
-          <div class="hero-display-box"></div>
+          <div class="hero-display-box">
+            <img src="${hero.chibisprite}" alt="${hero.name} class="flex full in-center"/>
+          </div>
           <label for="hero-${key}" class="flex col w-full in-center">
             <strong>${hero.name} - ${hero.type}</strong>
             <span>${"⭐".repeat(hero.rarity)}</span>
@@ -38,7 +41,9 @@ function renderSelectedHeroes(keys) {
       const hero = HeroList[key];
       return `
         <div class="hero-card-small">
-          <div class="hero-display-box"></div>
+          <div class="hero-display-box-small">
+            <img src="${hero.chibisprite}" alt="${hero.name} class="flex full in-center"/>
+          </div>
           <strong>${hero.name}</strong>
           <span>${"⭐".repeat(hero.rarity)}</span>
         </div>
@@ -148,12 +153,12 @@ const StartScreen = {
           alert("Pick at least one hero!");
           return;
         }
-
-        setstate({party: [...this.selectedHeroes]});
+        let initalizedCharacters = InstantializeCharacter([...this.selectedHeroes]);
+        setstate({party: [initalizedCharacters]});
         const logg = getstate();
         console.log("gamestat:", logg);
 
-        EventBus.emit("CREATE_PARTY", { heroes: this.selectedHeroes });
+        //EventBus.emit("CREATE_PARTY", { heroes: this.selectedHeroes });
         console.log("Selected heroes:", this.selectedHeroes);
       });
 

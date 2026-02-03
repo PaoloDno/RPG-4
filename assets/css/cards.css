@@ -71,11 +71,21 @@
 
 .hero-display-box {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 90px;
   height: 90px;
   border: 2px yellow;
   border-radius: 0.25rem;
   background-color: rgba(241, 237, 233, 0.178);
+}
+
+.hero-display-box-small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
 }
 
 .select {

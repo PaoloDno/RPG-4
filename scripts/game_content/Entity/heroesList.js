@@ -1,3 +1,5 @@
+
+
 // HeroList.js
 export const HeroList = {
   Arin: {
@@ -27,7 +29,11 @@ export const HeroList = {
       spd: 1.2,
       agi: 1,
       dex: 1
-    }
+    },
+
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Arin.png", import.meta.url
+    ).href
   },
 
   Ares: {
@@ -57,12 +63,17 @@ export const HeroList = {
       spd: 1.2,
       agi: 1.2,
       dex: 1.2
-    }
+    },
+
+    
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url
+    ).href
   },
 
   
    Asa: {
-    name: "Asab",
+    name: "Asa",
     element: "dark",      
     level: 1,             
     type: "Ninja",
@@ -93,7 +104,11 @@ export const HeroList = {
       spd: 1.5,
       agi: 1.5,
       dex: 1.5
-    }
+    },
+    
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
    Arceus: {
@@ -128,7 +143,10 @@ export const HeroList = {
       spd: 1.2,
       agi: 1.3,
       dex: 1.2
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
    Ark: {
@@ -163,7 +181,10 @@ export const HeroList = {
       spd: 1.2,
       agi: 1.2,
       dex: 1.2
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   Aria: {
@@ -194,7 +215,10 @@ export const HeroList = {
       spd: 1.5,
       agi: 1.5,
       dex: 1.5
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   Bach: {
@@ -223,7 +247,10 @@ export const HeroList = {
       spd: 1.2,
       agi: 1.2,
       dex: 1.2
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   Billy: {
@@ -250,7 +277,10 @@ export const HeroList = {
       spd: 1.5,
       agi: 1.5,
       dex: 1.5
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   
@@ -280,7 +310,10 @@ export const HeroList = {
       spd: 1.5,
       agi: 1.1,
       dex: 1
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   Boris: {
@@ -314,7 +347,10 @@ export const HeroList = {
       spd: 1.5,
       agi: 1.1,
       dex: 1
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   
@@ -349,7 +385,10 @@ export const HeroList = {
       spd: 1.2,
       agi: 1.2,
       dex: 1.2
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 
   Cheerios: {
@@ -383,6 +422,9 @@ export const HeroList = {
       spd: 1.4,
       agi: 1,
       dex: 1.2
-    }
+    },
+    chibisprite: new URL(
+      "../../../assets/sprites/heroes/chibi/Asa.png", import.meta.url
+    ).href
   },
 };
