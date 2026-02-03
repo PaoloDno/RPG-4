@@ -1,54 +1,171 @@
+
 import EventBus from "../../core/eventbus.js";
 import { HeroList } from "../../game_content/Entity/heroesList.js";
+import { getstate, setstate } from "../../game_content/SaveManager/savemange.js";
 
-const heroKeys = Object.keys(HeroList);
-let heroCards = heroKeys
-  .map((key) => {
-    const hero = HeroList[key];
-    return `
-      <div class="hero-card">
-        <input type="checkbox" id="hero-${key}" value="${key}" class="select">
-        <label for="hero-${key}">
-          <strong>${hero.name}</strong> - ${hero.type} - ${"⭐".repeat(hero.rarity)}
-        </label>
-      </div>
-    `;
-  })
-  .join("");
+/* =========================
+   HELPERS
+========================= */
+
+// Calculate total stars of selected heroes
+function calculateStars(heroKeys) {
+  return heroKeys.reduce((sum, key) => sum + HeroList[key].rarity, 0);
+}
+
+// Render hero cards HTML from an array of keys
+function renderHeroCards(keys) {
+  return keys
+    .map((key) => {
+      const hero = HeroList[key];
+      return `
+        <div class="hero-card">
+          <input type="checkbox" id="hero-${key}" value="${key}" />
+          <div class="hero-display-box"></div>
+          <label for="hero-${key}" class="flex col w-full in-center">
+            <strong>${hero.name} - ${hero.type}</strong>
+            <span>${"⭐".repeat(hero.rarity)}</span>
+          </label>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+// Render selected heroes panel
+function renderSelectedHeroes(keys) {
+  return keys
+    .map((key) => {
+      const hero = HeroList[key];
+      return `
+        <div class="hero-card-small">
+          <div class="hero-display-box"></div>
+          <strong>${hero.name}</strong>
+          <span>${"⭐".repeat(hero.rarity)}</span>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+// Reorder DOM cards: enabled cards first, then disabled, then by rarity
+function reorderCards(container) {
+  const cards = Array.from(container.children);
+
+  cards.sort((a, b) => {
+    const aDisabled = a.querySelector("input").disabled;
+    const bDisabled = b.querySelector("input").disabled;
+
+    if (aDisabled !== bDisabled) return aDisabled - bDisabled;
+
+    const aKey = a.querySelector("input").value;
+    const bKey = b.querySelector("input").value;
+
+    return HeroList[aKey].rarity - HeroList[bKey].rarity;
+  });
+
+  cards.forEach((card) => container.appendChild(card));
+}
+
+/* =========================
+   START SCREEN
+========================= */
 
 const StartScreen = {
-  enter(payload) {
+  selectedHeroes: [],
+
+  enter() {
+    this.selectedHeroes = [];
     console.log("Entering START GAME");
   },
 
   render(app) {
+    const allHeroKeys = Object.keys(HeroList);
+
+    // initial render
     app.innerHTML = `
       <div class="full in-center col">
         <h1>🌟 My RPG Platform 🌟</h1>
         <p>PICK 4 heroes</p>
-        <p>Not amounting to above 16 stars</p>
-        <div id="hero-selection">${heroCards}</div>
-        <button id="create-party-btn">Create Party</button>
+        <p>Total stars must not exceed 16</p>
+        <p id="star-counter">Stars: 0 / 16</p>
+
+        <div id="selected-hero-display" class="flex gap"></div>
+
+        <div class="flex row gap">
+          <button id="create-party-btn">Create Party</button>
+          <button id="deselect-party-btn">Deselect All</button>
+        </div>
+
+        <div id="hero-selection">
+          ${renderHeroCards(allHeroKeys)}
+        </div>
       </div>
     `;
 
-    const btn = document.getElementById("create-party-btn");
-    btn.addEventListener("click", () => {
-      const selected = Array.from(
-        document.querySelectorAll("#hero-selection input:checked"),
-      ).map((input) => input.value);
+    const container = document.getElementById("hero-selection");
+    const selectedDisplay = document.getElementById("selected-hero-display");
+    const starCounter = document.getElementById("star-counter");
+    const checkboxes = Array.from(container.querySelectorAll("input"));
 
-      if (selected.length > 4) {
-        return alert("You can only pick up to 4 heroes!");
-      }
+    // Update UI based on selections and star rules
+    const updateUI = () => {
+      const stars = calculateStars(this.selectedHeroes);
+      starCounter.textContent = `Stars: ${stars} / 16`;
+      selectedDisplay.innerHTML = renderSelectedHeroes(this.selectedHeroes);
 
-      EventBus.emit("CREATE_PARTY", { heroes: selected });
-      console.log("Selected heroes:", selected);
+      checkboxes.forEach((box) => {
+        const hero = HeroList[box.value];
+        const isChecked = box.checked;
+
+        if (!isChecked) {
+          // Disable if selection exceeds slots or stars
+          box.disabled =
+            this.selectedHeroes.length >= 4 || stars + hero.rarity > 16;
+        } else {
+          box.disabled = false;
+        }
+      });
+
+      reorderCards(container);
+    };
+
+    // Listen to checkbox changes
+    checkboxes.forEach((box) => {
+      box.addEventListener("change", () => {
+        const key = box.value;
+        if (box.checked) this.selectedHeroes.push(key);
+        else this.selectedHeroes = this.selectedHeroes.filter((k) => k !== key);
+
+        updateUI();
+      });
     });
+
+    // Create party button
+    document
+      .getElementById("create-party-btn")
+      .addEventListener("click", () => {
+        if (this.selectedHeroes.length === 0) {
+          alert("Pick at least one hero!");
+          return;
+        }
+
+        setstate({party: [...this.selectedHeroes]});
+        const logg = getstate();
+        console.log("gamestat:", logg);
+
+        EventBus.emit("CREATE_PARTY", { heroes: this.selectedHeroes });
+        console.log("Selected heroes:", this.selectedHeroes);
+      });
+
+    // Deselect all button
+    document
+      .getElementById("deselect-party-btn")
+      .addEventListener("click", () => {
+        this.selectedHeroes = [];
+        checkboxes.forEach((box) => (box.checked = false));
+        updateUI();
+      });
   },
 };
 
 export default StartScreen;
-
-// cards
-// of heroes with radio button but now radio button but no radio button light it

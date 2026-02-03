@@ -62,7 +62,7 @@ export const HeroList = {
 
   
    Asa: {
-    name: "Arceus",
+    name: "Asab",
     element: "dark",      
     level: 1,             
     type: "Ninja",
@@ -348,6 +348,40 @@ export const HeroList = {
       hlt: 1.2,
       spd: 1.2,
       agi: 1.2,
+      dex: 1.2
+    }
+  },
+
+  Cheerios: {
+    name: "Cheerios",
+    element: "base",      
+    level: 1,             
+    type: "MagicWolf",
+    rarity: 3,
+
+    baseStats: {
+      str: 20,
+      mgk: 20 + 15,
+      sta: 20,
+      mna: 20 + 5,
+      def: 20,
+      res: 20,
+      hlt: 20 + 5,
+      spd: 20 + 5,
+      agi: 20,
+      dex: 20 + 5,
+      },
+
+    growthStats: {
+      str: 1,
+      mgk: 1.2,
+      sta: 1,
+      mna: 1.2,
+      def: 1,
+      res: 1,
+      hlt: 1.2,
+      spd: 1.4,
+      agi: 1,
       dex: 1.2
     }
   },

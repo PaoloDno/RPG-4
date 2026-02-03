@@ -21,3 +21,7 @@ EventBus.on("GAME_START", () => {
   screens.show("start");
   EventBus.logActiveEvents();
 });
+
+EventBus.on("SCENE_", () => {
+  console.log("AA")
+})

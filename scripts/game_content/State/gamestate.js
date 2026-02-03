@@ -8,6 +8,7 @@ export const defaultPlayerGameState = {
   bag: [
     // items
   ],
+  gold: 100,
   party: [
     // Example structure for a character
     // You can have multiple members here
@@ -27,7 +28,11 @@ export const defaultPlayerGameState = {
   world: {
     floor: 1,
     time: 7, // every tile move add 1
-    floormatrix,
+    floormatrix: [
+      [],
+      [],
+      []
+    ],
   },
 
 
@@ -36,5 +41,5 @@ export const defaultPlayerGameState = {
   stats: {
     kills: {},
     deaths: 0
-  }
+  },
 };

@@ -1,5 +1,5 @@
-import EventBus from "../../core/eventbus";
-import { defaultPlayerGameState } from "../State/gamestate";
+import EventBus from "../../core/eventbus.js";
+import { defaultPlayerGameState } from "../State/gamestate.js";
 
 const storageKey = "rpg_save";
 
@@ -16,7 +16,7 @@ export function setstate(partial) {
 
 export function save(slot = 1) {
   gamestate.slots[slot-1] = structuredClone(gamestate.active);
-  gamestate.active.meta.lastSavedat = Date.now();
+  gamestate.active.meta.lastSavedAt = Date.now();
   localStorage.setItem(storageKey, JSON.stringify(gamestate));
   console.log(`saved to slot ${slot}`, gamestate.active);
 }
