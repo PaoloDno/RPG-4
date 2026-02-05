@@ -10,6 +10,7 @@ const screens = new ScreenManager(app);
 screens.register("title", TitleScreen);
 screens.register("start", StartScreen);
 
+
 // Show title screen
 screens.show("title");
 
@@ -25,3 +26,4 @@ EventBus.on("GAME_START", () => {
 EventBus.on("SCENE_", () => {
   console.log("AA")
 })
+

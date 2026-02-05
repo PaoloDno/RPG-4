@@ -1,0 +1,24 @@
+.notification-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+
+.notification-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.notification-box {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 420px;
+  padding: 16px;
+  background: #111;
+  border: 2px solid #555;
+  color: white;
+}

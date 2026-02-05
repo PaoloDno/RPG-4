@@ -10,6 +10,10 @@ let gamestate = JSON.parse(localStorage.getItem(storageKey)) || {
 
 export function getstate() { return gamestate.active};
 
+export function getStateParty () {
+  return gamestate?.active?.party;
+}
+
 export function setstate(partial) {
   gamestate.active = { ...gamestate.active, ...partial};
 }

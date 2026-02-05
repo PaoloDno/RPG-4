@@ -18,4 +18,18 @@ export const PORTRAIT_DIALOUGE = {
       "../../../assets/sprites/stories/portrait/npcportrait/hoverNinja.png", import.meta.url
     ).href,
   },
+
+  Ares: {
+    default: new URL(
+      "../../../assets/sprites/stories/portrait/npcportrait/hoverNinja.png", import.meta.url
+    ).href,
+    happy: new URL(
+      "../../../assets/sprites/stories/portrait/npcportrait/hoverNinja.png", import.meta.url
+    ).href,
+    sad:  new URL(
+      "../../../assets/sprites/stories/portrait/npcportrait/hoverNinja.png", import.meta.url
+    ).href,
+  },
+
+  // curretly default
 }

@@ -3,10 +3,15 @@ import EventBus from "../../core/eventbus.js";
 import { HeroList } from "../../game_content/Entity/heroesList.js";
 import { getstate, setstate } from "../../game_content/SaveManager/savemange.js";
 import InstantializeCharacter from "../../logic/characters/InstantializeCharacter.js";
-
+import ScreenManager from "../screenmanager.js";
+import { Chapter1 } from "../../game_content/Stories/chapter1.js";
+import DialougeScreen from "./dialoguescreen.js";
+const screens = new ScreenManager(app);
 /* =========================
    HELPERS
 ========================= */
+
+screens.register("scene_0", DialougeScreen(Chapter1));
 
 // Calculate total stars of selected heroes
 function calculateStars(heroKeys) {
@@ -22,7 +27,7 @@ function renderHeroCards(keys) {
         <div class="hero-card">
           <input type="checkbox" id="hero-${key}" value="${key}" />
           <div class="hero-display-box">
-            <img src="${hero.chibisprite}" alt="${hero.name} class="flex full in-center"/>
+            <img src="${hero.chibisprite}" alt="${hero.name}" class="flex full in-center"/>
           </div>
           <label for="hero-${key}" class="flex col w-full in-center">
             <strong>${hero.name} - ${hero.type}</strong>
@@ -160,6 +165,7 @@ const StartScreen = {
 
         //EventBus.emit("CREATE_PARTY", { heroes: this.selectedHeroes });
         console.log("Selected heroes:", this.selectedHeroes);
+        screens.show("scene_0");
       });
 
     // Deselect all button
