@@ -1,5 +1,6 @@
-import { getStateParty  } from "../../game_content/SaveManager/savemange.js";
+import { getStateParty } from "../../game_content/SaveManager/savemange.js";
 import { PORTRAIT_DIALOUGE } from "../../game_content/Stories/portraitdialouge.js";
+import { getHeroResponse } from "../../game_content/Stories/responseList.js";
 
 export default function DialougeScreen(script) {
   return {
@@ -31,6 +32,7 @@ export default function DialougeScreen(script) {
     },
 
     next() {
+      console.log(this.currentIndex);
       this.currentIndex++;
       this.showCurrent();
     },
@@ -38,12 +40,8 @@ export default function DialougeScreen(script) {
     renderDialogue(entry) {
       const app = document.getElementById("app");
 
-      const leftImg = entry.leftChar
-        ? PORTRAIT_DIALOUGE[entry.leftChar]?.default
-        : "";
-      const rightImg = entry.rightChar
-        ? PORTRAIT_DIALOUGE[entry.rightChar]?.default
-        : "";
+      const leftImg = PORTRAIT_DIALOUGE[entry.leftChar] || "";
+      const rightImg = PORTRAIT_DIALOUGE[entry.rightChar] || "";
 
       app.innerHTML = `
         <div class="dialogue-container" style="background-image: url('${entry.background || ""}')">
@@ -67,6 +65,8 @@ export default function DialougeScreen(script) {
     renderSystem(text, background, callback) {
       const app = document.getElementById("app");
 
+      // Run the callback immediately if it exists
+
       app.innerHTML = `
         <div class="dialogue-container system-message" style="background-image: url('${background || ""}')">
           <div class="dialogue-box">
@@ -76,49 +76,62 @@ export default function DialougeScreen(script) {
         </div>
       `;
 
-      if (callback) {
-      callback(() => this.next());
-        } else {
-          this.next();
-        }
+      
+      // Only clicking the Next button advances dialogue
+      document.getElementById("next-btn").onclick = () => this.next();
+
+      
+      if (callback) callback();
+
     },
 
-   renderPartyResponse(entry) {
+    renderPartyResponse(entry) {
       const app = document.getElementById("app");
 
       let party = getStateParty();
-      console.log(party);
+      console.log("PARTY:", party);
+    
 
+      if (!party || !party.length) {
+        console.warn("Party is empty!");
+        return;
+      }
+
+      const Order = Array.from(
+        { length: 8 },
+        (_, i) => party[i % party.length].name,
+      );
+      console.log("ORder", Order);
       // Pull hero portrait from same PORTRAIT_DIALOUGE or a separate HERO_PORTRAIT list
-      const heroName = entry.rightChar;
-      const heroImg = PORTRAIT_DIALOUGE[heroName]?.default || "";
+      let heroName = `${Order[entry.speakerName]}`;
+      let heroImg = PORTRAIT_DIALOUGE[`${heroName}${entry.rightChar}`] || "";
 
       // Pull response from HERO_RESPONSE_LIST
-      const stage = entry.partyResponseStage;
-      const text = getHeroResponse(stage, heroName);
+      console.log("HERO", heroImg);
+      console.log(entry.text_response, heroName);
+      const text = String(getHeroResponse(entry.text_response, heroName) || "");
+      console.log(text);
 
-      app.innerHTML = `
-        <div class="dialogue-container" style="background-image: url('${entry.background || ""}')">
-          <div class="character left">
-            ${entry.leftChar ? `<img src="${PORTRAIT_DIALOUGE[entry.leftChar]?.default || ""}" alt="${entry.leftChar}">` : ""}
+
+      setTimeout(() => {
+        app.innerHTML = `
+          <div class="dialogue-container" style="background-image: url('${entry.background || ""}')">
+            <div class="character left">
+              ${entry.leftChar ? `<img src="${PORTRAIT_DIALOUGE[entry.leftChar] || ""}" alt="${entry.leftChar}">` : ""}
+            </div>
+            <div class="dialogue-box">
+              <p class="speaker">${heroName}</p>
+              <p class="text">${text}</p>
+              <button id="next-btn">Next</button>
+            </div>
+            <div class="character right">
+              ${heroImg ? `<img src="${heroImg}" alt="${heroName}">` : ""}
+            </div>
           </div>
-          <div class="dialogue-box">
-            <p class="speaker">${heroName}</p>
-            <p class="text">${text}</p>
-            <button id="next-btn">Next</button>
-          </div>
-          <div class="character right">
-            ${heroImg ? `<img src="${heroImg}" alt="${heroName}">` : ""}
-          </div>
-        </div>
-      `;
+        `;
 
-      document.getElementById("next-btn").onclick = () => this.next();
-    },
-
-
-    getPartyOrderResponse(party){
-      console.log()
-    }
+    document.getElementById("next-btn").onclick = () => this.next();
+  }, 10);
+},
   };
 }

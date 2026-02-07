@@ -1,83 +1,88 @@
 // chapter1.js
 import { showNotification } from "../../ui/notifications/notificationModal.js";
+
+import { getStateParty } from "../SaveManager/savemange.js";
+import { getHeroResponse } from "./responseList.js";
+
 import ScreenManager from "../../ui/screenmanager.js";
 import TitleScreen from "../../ui/screens/titlescreen.js";
-
-
 const app = document.getElementById("app");
 const screens = new ScreenManager(app);
 
 screens.register("title", TitleScreen);
 
-let Party = ["Ares"];
+let Party = ["Ares", "Cain"];
 let party = ["Ares"];
 
-const getHeroResponse = () => {
-  console.log("A");
-};
 
 export const Chapter1 = [
+  // Intro dialogue
   {
     leftChar: "GirlNpc",
     speakerName: "Inn Woman",
     speakerSide: "left",
-    text: "Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
-    background: "Dungeon",
+    text: "1 Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
+    
   },
 
+  // Party response
+  {
+    partyResponseStage: true,
+    leftChar: "GirlNpc",
+    rightChar: "_default",
+    speakerName: 0,
+    text_response: 1,
+    speakerSide: "right",
+  },
+
+  // System notification
   {
     system: true,
-    text: "You and your party feel fully rested.",
+    text: "3 You and your party feel fully rested.",
     callback: (next) => {
       showNotification({
-        text: "AYAYAYAY!!!",
+        text: "3 AYAYAYAY!!!",
         onConfirm: next,
       });
     },
   },
 
+  // Dialogue repeated a few times
   {
     system: false,
     leftChar: "GirlNpc",
     rightChar: "",
     speakerName: "Inn Woman",
     speakerSide: "left",
-    text: "Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
+    text: "4 Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
     background: "Dungeon",
+  },
+
+  // System restoration messages
+  {
+    system: true,
+    text: "5 HP, Mana, and Stamina fully restored.",
+    callback: () => {console.log("MAMA");},
+  },
+
+  // Instructions and errands
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "6 You may rest here anytime for 10 gold. It restores everything but consumes one day.",
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "7 Actually... could you run an errand for me?",
   },
 
   {
     system: true,
-    text: "HP, Mana, and Stamina fully restored.",
-  },
-
-  {
-    system: false,
-    leftChar: "GirlNpc",
-    rightChar: "",
-    speakerName: "Inn Woman",
-    speakerSide: "left",
-    text: "Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
-    background: "Dungeon",
-  },
-
-  {
-    leftChar: "GirlNpc",
-    speakerName: "Inn Woman",
-    speakerSide: "left",
-    text: "You may rest here anytime for 10 gold. It restores everything but consumes one day.",
-  },
-
-  {
-    leftChar: "GirlNpc",
-    speakerName: "Inn Woman",
-    speakerSide: "left",
-    text: "Actually... could you run an errand for me?",
-  },
-
-  {
-    system: true,
-    text: "Received Item: Creamy Broth",
+    text: "8 Received Item: Creamy Broth",
   },
 
   {
@@ -85,54 +90,55 @@ export const Chapter1 = [
     leftChar: "GirlNpc",
     speakerName: "Inn Woman",
     speakerSide: "left",
-    text: "Please deliver this to my sister in the market district.",
+    text: "9 Please deliver this to my sister in the market district.",
   },
 
-  {
-  system: true,
-  text: "You and your party feel fully rested.",
-  callback: (next) => {
-    showNotification({
-      text: "AYAYAYAY!!!",
-      onConfirm: () => {
-        console.log("MANNN");
-        next();
-      }
-    });
-  }
-},
-
-
+  // Another system notification with callback
   {
     system: true,
-    text: "Received Item: Creamy Broth",
-  },
-
-  {
-    system: false,
-    leftChar: "GirlNpc",
-    speakerName: "Inn Woman",
-    speakerSide: "left",
-    text: "Please deliver this to my sister in the market district.",
-  },
-
-  {
-    leftChar: "GirlNpc",
-    speakerName: "Inn Woman",
-    speakerSide: "left",
-    text: "Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
-    background: "Dungeon",
-  },
-
-  {
-    system: true,
-    text: "You and your party feel fully rested.",
+    text: "10 You and your party feel fully rested.",
     callback: () => {
-      
+      showNotification({
+        text: "AYAYAYAY!!!",
+        onConfirm: () => {
+          console.log("MANNN");
+        },
+      });
+    },
+  },
+
+  // Repeated delivery dialogue
+  {
+    system: false,
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "11 Please deliver this to my sister in the market district.",
+  },
+
+  {
+    system: true,
+    text: "12 Received Item: Creamy Broth",
+  },
+
+  {
+    leftChar: "GirlNpc",
+    speakerName: "Inn Woman",
+    speakerSide: "left",
+    text: "13 Good morning adventurer. Welcome to the base floor of the Tower Dungeon.",
+    background: "Dungeon",
+  },
+
+  // Ending system message with callback to show title screen
+  {
+    system: true,
+    text: "go to title",
+    callback: () => {
       screens.show("title");
     },
   },
 ];
+
 
 export const Chapter1A = [
   {

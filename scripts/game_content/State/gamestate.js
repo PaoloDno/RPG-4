@@ -8,6 +8,11 @@ export const defaultPlayerGameState = {
   bag: [
     // items
   ],
+
+  keyItems: [
+    // lore items,
+  ],
+  
   gold: 100,
   party: [
     // Example structure for a character
@@ -32,25 +37,29 @@ export const defaultPlayerGameState = {
       skills: [],
       equipment: {},
       exp: 0,
-    }
+    },
     */
   ],
 
   world: {
     floor: 1,
+    max_floor: 1,
     time: 7, // every tile move add 1
-    floormatrix: [
-      [],
-      [],
-      []
-    ],
   },
 
+  map: {
+    tiles: [],
+  },
+
+  position: {
+    x: 0, y: 0,
+    facing: "up",
+  },
 
   monsterKills: [], //quest are by monster killed
 
   stats: {
     kills: {},
-    deaths: 0
+    deaths: 0,
   },
 };

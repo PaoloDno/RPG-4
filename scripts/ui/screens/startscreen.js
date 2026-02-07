@@ -1,17 +1,17 @@
 
 import EventBus from "../../core/eventbus.js";
 import { HeroList } from "../../game_content/Entity/heroesList.js";
-import { getstate, setstate } from "../../game_content/SaveManager/savemange.js";
+import { getstate, getStateParty, setstate } from "../../game_content/SaveManager/savemange.js";
 import InstantializeCharacter from "../../logic/characters/InstantializeCharacter.js";
 import ScreenManager from "../screenmanager.js";
-import { Chapter1 } from "../../game_content/Stories/chapter1.js";
+import { Chapter0 } from "../../game_content/Stories/chapter0.js";
 import DialougeScreen from "./dialoguescreen.js";
 const screens = new ScreenManager(app);
 /* =========================
    HELPERS
 ========================= */
 
-screens.register("scene_0", DialougeScreen(Chapter1));
+screens.register("scene_0", DialougeScreen(Chapter0));
 
 // Calculate total stars of selected heroes
 function calculateStars(heroKeys) {
@@ -159,7 +159,7 @@ const StartScreen = {
           return;
         }
         let initalizedCharacters = InstantializeCharacter([...this.selectedHeroes]);
-        setstate({party: [initalizedCharacters]});
+        setstate({ party: initalizedCharacters });
         const logg = getstate();
         console.log("gamestat:", logg);
 
