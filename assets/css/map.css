@@ -1,0 +1,40 @@
+.map {
+  display: grid;
+  height: fit-content;
+  grid-template-columns: repeat(7, 48px);
+  grid-template-rows: repeat(7, 48px);
+  gap: 4px;
+}
+
+.floor-grid {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  grid-template-rows: repeat(7, auto);
+  gap: 4px;
+  background-color: #ff99004b;
+}
+
+.tile {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid #aaa;
+}
+
+.tile.player { background: #e4fae5; }
+.tile.monster { background: #f44336; }
+.tile.stairsDown { background: #d38e28; }
+.tile.stairsUp { background: #df8e15; }
+.tile.hidden { opacity: 0.45; cursor:default;}
+.tile.shadow { opacity: 0.9; cursor: default;}
+.tile.off { background: black;}
+.tile.floor { background: green;}
+.tile.block { background: rgb(53, 29, 1);}

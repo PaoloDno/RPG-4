@@ -1,7 +1,7 @@
 @import url("../css/cards.css");
 @import url("../css/dialouge.css");
 @import url("../css/notification.css");
-
+@import url("../css/map.css");
 
 * {
   margin: 0;
@@ -23,8 +23,6 @@
   --text-muted: #A0A6B3;
 }
 
-
-
 body {
   background-color: var(--bg-main);
   display: flex;
@@ -39,14 +37,13 @@ body {
   color: var(--text-main);
 }
 
-
 #header {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 90vw;
   max-width: 800px;
-  height: 60px;
+  height: 10vh;
   background-color: var(--bg-panel);
   border-radius: 0.75rem;
   color: var(--accent-gold);
@@ -55,12 +52,14 @@ body {
 #app {
   display: flex;
   width: 90vw;
-  height: 90vh;
+  height: 82vh;
   max-width: 800px;
   max-height: 700px;
   background-color: var(--bg-panel);
   padding: 0.75rem;
   border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
 
@@ -111,16 +110,23 @@ p {
   justify-items: start;
 }
 
+.panel {
+  background-color: var(--bg-panel);
+}
+
 button {
   display: flex;
   text-align: center;
   align-items: center;
   justify-items: center;
   justify-content: center;
+  background-color: #0E1117;
+  color: goldenrod;
   padding-right: 3px;
   padding-left: 3px;
   padding-top: 1px;
   padding-bottom: 1px;
   min-width: 150px;
-  font-size: 0.8rem;
+  min-height: 5vh;
+  font-size: 0.85rem;
 }

@@ -1,13 +1,49 @@
 import EventBus from "../../../core/eventbus.js";
 import ScreenManager from "../../screenmanager.js";
-
-const app = document.getElementById("app");
-const screens = new ScreenManager(app);
-
+import GuildTownScreen from "./guildtown.js";
+import InnTownScreen from "./inntown.js";
+import StoreTownScreen from "./storetown.js";
+import TowerTownScreen from "./towertown.js";
 
 export const TownScreen = {
   enter(payload) {
-    console.log("setState player location town")
+    console.log("setState player location town");
+
+    const app = document.getElementById("app");
+    const screens = new ScreenManager(app);
+
+    screens.register("Go_to_inn", InnTownScreen);
+    screens.register("Go_to_store", StoreTownScreen);
+    screens.register("Go_to_guild", GuildTownScreen);
+    screens.register("Go_to_tower", TowerTownScreen);
+
+    EventBus.on("Go_Inn", () => {
+      console.log("Player clicked Start! Transition to next screen here...");
+      EventBus.logActiveEvents();
+      screens.show("Go_to_inn");
+    });
+
+    EventBus.on("Go_Store", () => {
+      console.log("Player clicked Start! Transition to next screen here...");
+      EventBus.logActiveEvents();
+      screens.show("Go_to_store");
+    });
+
+    EventBus.on("Go_Guild", () => {
+      console.log("Player clicked Start! Transition to next screen here...");
+      EventBus.logActiveEvents();
+      screens.show("Go_to_guild");
+      EventBus.logActiveEvents();
+    });
+
+    EventBus.on("Go_Tower", () => {
+      console.log("Player clicked Start! Transition to next screen here...");
+      EventBus.logActiveEvents();
+      screens.show("Go_to_tower");
+      EventBus.logActiveEvents();
+    });
+
+
   },
 
   render(app) {
@@ -22,23 +58,22 @@ export const TownScreen = {
 
     document.getElementById("inn_1-btn").addEventListener("click", () => {
       // Emit an event when the player clicks "Start"
-      EventBus.emit("Go_to_Inn");
+      EventBus.emit("Go_Inn");
     });
 
     document.getElementById("store_1-btn").addEventListener("click", () => {
       // Emit an event when the player clicks "Start"
-      EventBus.emit("Go_to_Store");
+      EventBus.emit("Go_Store");
     });
 
     document.getElementById("guild_1-btn").addEventListener("click", () => {
       // Emit an event when the player clicks "Start"
-      EventBus.emit("Go_to_guild");
+      EventBus.emit("Go_Guild");
     });
 
-    document.getElementById("tower-btn").addEventListener("click", () => {
+    document.getElementById("tower_1-btn").addEventListener("click", () => {
       // Emit an event when the player clicks "Start"
-      EventBus.emit("enter_to_tower");
+      EventBus.emit("Go_Tower");
     });
-
-  }
-}
+  },
+};

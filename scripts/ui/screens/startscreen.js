@@ -47,7 +47,7 @@ function renderSelectedHeroes(keys) {
       return `
         <div class="hero-card-small">
           <div class="hero-display-box-small">
-            <img src="${hero.chibisprite}" alt="${hero.name} class="flex full in-center"/>
+            <img src="${hero.chibisprite}" alt="${hero.name}" class="flex full in-center"/>
           </div>
           <strong>${hero.name}</strong>
           <span>${"⭐".repeat(hero.rarity)}</span>

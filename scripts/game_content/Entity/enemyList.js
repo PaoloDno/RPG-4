@@ -1,105 +1,100 @@
-// Enemy.js
-export function createEnemy(name, type = "Goblin", floor = 1) {
-  // Level scales with floor + some randomness
-  const level = floor + Math.floor(Math.random() * 5) + 1;
+export const enemyList = {
+  goblin: {
+    name: "Goblin",
+    element: ["dark", "base"],
+    type: "Goblin",
+    rarity: 3,
+    block: 1,
 
-  // Base stats for generic enemy
-  const baseStats = {
-    str: 10 + floor * 2,
-    mgk: 5 + floor,
-    sta: 10 + floor * 2,
-    mna: 5 + floor,
-    def: 5 + floor,
-    res: 5 + floor,
-    hlt: 10 + floor,
-    spd: 5 + floor,
-    agi: 5 + floor,
-    dex: 5 + floor
-  };
+    baseStats: {
+      str: 10,
+      mgk: 10,
+      sta: 10,
+      mna: 10,
+      def: 10,
+      res: 10,
+      hlt: 10,
+      spd: 10,
+      agi: 10,
+      dex: 10,
+    },
 
-  // Simple growth per level
-  const growthStats = {
-    str: 1 + floor * 0.1,
-    mgk: 0.5 + floor * 0.05,
-    sta: 1 + floor * 0.1,
-    mna: 0.5 + floor * 0.05,
-    def: 0.5 + floor * 0.05,
-    res: 0.5 + floor * 0.05,
-    hlt: 1 + floor * 0.1,
-    spd: 0.5 + floor * 0.05,
-    agi: 0.5 + floor * 0.05,
-    dex: 0.5 + floor * 0.05
-  };
+    growthStats: {
+      spd: 1.2,
+      str: 1.1,
+    },
+    
+    skills: ["Slash", "Stab"],
+    minfloor: 1,
+    maxfloor: 10,
+    drop: [
+      "OldDagger", 20, 10
+    ]
+  },
 
-  // Rarity for enemies, default 1
-  const rarity = 1;
+  goblin_shaman: {
+    name: "Goblin Shaman",
+    element: ["dark", "base"],
+    type: "Goblin",
+    rarity: 4,
+    block: 1,
 
-  // Element random choice
-  const elements = ["aqua", "pyro", "wind", "light", "dark", "base"];
-  const element = elements[Math.floor(Math.random() * elements.length)];
+    baseStats: {
+      str: 20,
+      mgk: 20,
+      sta: 20,
+      mna: 20,
+      def: 20,
+      res: 20,
+      hlt: 20,
+      spd: 20,
+      agi: 20,
+      dex: 20,
+    },
 
-  // Use your Character constructor for enemy
-  const enemy = new Character(name, element, level, type, baseStats, growthStats, rarity);
+    growthStats: {
+      mgk: 1.2,
+    },
 
-  return enemy;
-}
+    skills: ["Slash", "Stab"],
+    minfloor: 1,
+    maxfloor: 10,
+    drop: [
+      "OldRobe", "OldStaff", 20, 10
+    ]
+  },
 
-// Example usage
-const goblin = createEnemy("Goblin", "Goblin", 3);
-goblin.info();
+  goblin_hob: {
+    name: "Goblin Hob",
+    element: ["dark", "base"],
+    type: "Goblin",
+    rarity: 4,
+    block: 2,
 
+    baseStats: {
+      str: 25,
+      mgk: 25,
+      sta: 25,
+      mna: 25,
+      def: 25,
+      res: 25,
+      hlt: 25,
+      spd: 25,
+      agi: 25,
+      dex: 25,
+    },
 
+    growthStats: {
+      str: 1.2,
+      hlt: 2,
+      def: 2,
+    },
 
-// BossEnemy.js
-export function createBossEnemy(name = "GoblinChampion", floor = 10) {
-  // Boss level scales higher than normal enemies
-  const level = floor + 5; 
-
-  // Base stats much higher than normal
-  const baseStats = {
-    str: 80,
-    mgk: 20,
-    sta: 60,
-    mna: 20,
-    def: 50,
-    res: 40,
-    hlt: 70,
-    spd: 30,
-    agi: 25,
-    dex: 30
-  };
-
-  // Growth stats for boss (stronger growth)
-  const growthStats = {
-    str: 2.5,
-    mgk: 1,
-    sta: 2,
-    mna: 1,
-    def: 2,
-    res: 1.5,
-    hlt: 2,
-    spd: 1.2,
-    agi: 1,
-    dex: 1
-  };
-
-  // Boss rarity higher
-  const rarity = 5;
-
-  // Element choice (can be random or fixed)
-  const elements = ["aqua", "pyro", "wind", "light", "dark", "base"];
-  const element = elements[Math.floor(Math.random() * elements.length)];
-
-  // Use Character constructor
-  const boss = new Character(name, element, level, "Boss", baseStats, growthStats, rarity, block = 4);
-
-  // Optional: Add boss-specific skills
-  boss.skills = ["Lunge", "Cleave", "Frenzy", "Roar"]; 
-
-  return boss;
-}
-
-// Example usage
-const goblinChampion = createBossEnemy("GoblinChampion", 10);
-goblinChampion.info();
-console.log("Skills:", goblinChampion.skills);
+    skills: ["Slash", "Stab"],
+    minfloor: 5,
+    maxfloor: 10,
+    drop: [
+      "OrcClub", 50, 80
+    ]
+  },
+};

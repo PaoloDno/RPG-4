@@ -4,11 +4,11 @@ import { PORTRAIT_DIALOUGE } from "./portraitdialouge.js";
 import { HERO_RESPONSE_LIST } from "./responseList.js";
 
 import ScreenManager from "../../ui/screenmanager.js";
-import TitleScreen from "../../ui/screens/titlescreen.js";
+import { TownScreen } from "../../ui/screens/town/townscreen.js";
 const app = document.getElementById("app");
 const screens = new ScreenManager(app);
 
-screens.register("title", TitleScreen);
+screens.register("town", TownScreen);
 
 export const Chapter0 = [
   {
@@ -52,7 +52,7 @@ export const Chapter0 = [
     system: true,
     text: "go to title", // will not show
     callback: () => {
-      screens.show("title");
+      screens.show("town");
     },
   },
 ];

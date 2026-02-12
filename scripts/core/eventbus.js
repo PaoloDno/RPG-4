@@ -13,6 +13,11 @@ const EventBus = {
     this.events[event] = (this.events[event] || []).filter(h => h !== handler);
   },
 
+  clear() {
+  this.events = {};
+  },
+
+
 
   // New method to console active events
   logActiveEvents() {
