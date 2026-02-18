@@ -1,66 +1,61 @@
-let defaultStats = {
-  str: 20,
-  mgk: 20,
-  sta: 20,
-  mna: 20,
-  def: 20,
-  res: 20,
-  hlt: 20,
-  spd: 20,
-  agi: 20,
-  dex: 20,
-  
-}
+// how should i make multiple dmg hit
 
+// 
 
 export const skillList = {
-  
+
   Slash: {
     type: "physical",
     elem: "base",
-    damage: 10 + str + spd,
-    Spconsumption: 0,
-    MnConsuption: 0,
+    spCost: () => 0,
+    mpCost: () => 0,
+    power: (user) => 10 + user.physAtk,
+    effect: () =>
+      console.log("A"),
   },
 
-  Blunt_Force: {
+  BluntForce: {
     type: "physical",
     elem: "base",
-    damage: 10 + str + spd,
-    Spconsumption: 0,
-    MnConsuption: 0,
+    spCost: () => 0,
+    mpCost: () => 0,
+    power: (user) => 10 + user.mgkAtk,
   },
 
-  Mana_Pellet: {
+  ManaPellet: {
     type: "magical",
     elem: "base",
-    damage: 10 + mgk * 2 + mna + dex,
-    Spconsumption: 0,
-    MnConsuption: damage / 2,
+    spCost: () => 0,
+    mpCost: (user, dmg) => Math.floor(dmg / 2),
+    power: (user) =>
+      10 + user.stats.mgk * 2 + user.stats.mna + user.stats.dex
   },
 
-  Ki_Strike: {
+  KiStrike: {
     type: "physical",
     elem: "base",
-    damage: 10 + str * 2 + agi + dex,
-    Spconsumption: damage / 2,
-    MnConsuption: 0,
+    spCost: (user, dmg) => Math.floor(dmg / 2),
+    mpCost: () => 0,
+    power: (user) =>
+      10 + user.stats.str * 2 + user.stats.agi + user.stats.dex
   },
 
-  Mana_Blast: {
+  ManaBlast: {
     type: "magical",
     elem: "base",
-    damage: 10 + mgk * 3 + mna + dex,
-    Spconsumption: 0,
-    MnConsuption: damage / 2 + mgk,
+    spCost: () => 0,
+    mpCost: (user, dmg) =>
+      Math.floor(dmg / 2 + user.stats.mgk),
+    power: (user) =>
+      10 + user.stats.mgk * 3 + user.stats.mna + user.stats.dex
   },
 
-  Flame_Slash: {
+  FlameSlash: {
     type: "physical",
-    elem: "fire",
-    damage: 10 + str * 3 + agi + dex,
-    Spconsumption: damage / 2,
-    MnConsuptiom: str,
-  },
-
-}
+    elem: "pyro",
+    spCost: (user, dmg) => Math.floor(dmg / 2),
+    mpCost: (user) => user.stats.str,
+    power: (user) =>
+      10 + user.stats.str * 3 + user.stats.agi + user.stats.dex
+  }
+};

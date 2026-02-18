@@ -5,7 +5,8 @@ export function Character(
   type = "Adventurer",
   baseStats = {},
   growthStats = {},
-  equipemntStats= {
+  equipment = {},
+  equipemntStats = {
     str: 0,
     mgk: 0,
     sta: 0,
@@ -34,119 +35,95 @@ export function Character(
     ...baseStats,
   };
 
-  Object.keys(stats).forEach(stat => {
+  Object.keys(stats).forEach((stat) => {
     const growth = growthStats[stat] || 1;
     stats[stat] += Math.floor(growth * (level - 1));
   });
 
-  Object.keys(stats).forEach(stat => {
+  Object.keys(stats).forEach((stat) => {
     stats[stat] += equipemntStats[stat] || 0;
   });
 
-  let hp = 0,
-    mp = 0,
-    sp = 0,
-    actionSpeed = 0;
-  let critR = 10,
-    critD = 1.2;
-  let mgkRes = 10,
-    armor = 10;
+  let hp, mp, sp;
+  let physAtk, mgkAtk, actionSpeed;
+  let critR, critD, eva, blockRate;
+  let armor, mgkRes;
 
-  const calcHp = () => {
-    hp = stats.hlt * 5 + Math.floor((stats.def + stats.res) / 5) * 2;
-  };
-  const calcMp = () => {
+  function calcResources() {
+    hp = stats.hlt * 8 + Math.floor(((stats.def + stats.res) / 4) * 5);
+
     mp =
-      stats.mna * 2 +
-      Math.floor((stats.mgk + stats.dex) / 5) +
+      stats.mna * 5 +
+      Math.floor((stats.mgk + stats.dex) / 2) +
       Math.floor(stats.sta / 2);
-  };
-  const calcSp = () => {
-    sp =
-      stats.sta * 2 +
-      Math.floor((stats.str + stats.agi) / 2) +
-      Math.floor(stats.spd / 2);
-  };
-  const calcActionSpeed = () => {
-    actionSpeed = Math.floor(
-      (stats.spd * 5 + stats.agi + stats.dex + stats.sta) / 10,
-    );
-  };
 
-  const calcCrit = () => {
-    const rawCR = 10 + Math.floor(stats.agi / 5) + Math.floor(stats.dex / 4);
+    sp =
+      stats.sta * 5 +
+      Math.floor((stats.str + stats.agi) / 2) +
+      Math.floor(stats.mna / 2);
+  }
+  
+  function calcAttack() {
+    physAtk = stats.str * 4 + Math.floor(stats.dex / 5 + stats.sta / 5);
+    mgkAtk = stats.mgk * 4 + Math.floor(stats.res / 5 + stats.mna / 5);
+  }
+
+  function calcActionSpeed() {
+    actionSpeed = Math.floor(
+      (stats.spd * 2 + stats.agi + Math.floor((stats.dex + stats.sta) / 2)) /
+        10,
+    );
+  }
+
+  function calcCrit() {
+    const rawCR = 10 + Math.floor(stats.agi / 5) + Math.floor(stats.dex / 10);
     const overflow = Math.max(0, rawCR - 90);
     const dmgStat = Math.max(stats.str, stats.mgk);
+
     critR = Math.min(90, rawCR);
     critD =
-      120 +
+      110 +
       Math.floor(overflow / 10) +
-      Math.floor(stats.dex / 10) +
+      Math.floor(stats.dex / 5) +
       Math.floor(dmgStat / 10);
+  }
 
-  };
+  function calcDefense() {
+    mgkRes =
+      5 +
+      Math.floor(stats.res / 2 + stats.mgk / 5 + stats.hlt / 5 + stats.mna / 5);
+    armor =
+      5 +
+      Math.floor(stats.def / 2 + stats.str / 5 + stats.agi / 5 + stats.dex / 5);
+  }
 
-  const calcDefense = () => {
-    mgkRes = 5 + Math.floor(stats.res / 2 + stats.mgk / 5 + stats.mna / 5);
-    armor = 5 + Math.floor(stats.def / 2 + stats.agi / 5 + stats.dex / 5);
-  };
+  function calcAvoidance() {
+    blockRate = Math.min(
+      75,
+      5 + Math.floor(stats.def / 10) + Math.floor(stats.dex / 10),
+    );
+    eva = Math.min(
+      45,
+      2 + Math.floor(stats.agi / 10) + Math.floor(stats.spd / 10),
+    );
+  }
 
-  this.getHp = () => {
-    calcHp();
-    return hp;
-  };
-  this.getMp = () => {
-    calcMp();
-    return mp;
-  };
-  this.getSp = () => {
-    calcSp();
-    return sp;
-  };
-  this.getActionSpeed = () => {
+  function buildDerived() {
+    calcResources();
+    calcAttack();
     calcActionSpeed();
-    return actionSpeed;
-  };
-  this.getCrit = () => {
     calcCrit();
-    return { critR, critD };
-  };
-  this.getDefense = () => {
     calcDefense();
-    return { armor, mgkRes };
-  };
+    calcAvoidance();
+  }
 
-  this.info = () => {
-    console.log(
-      `Name: ${name} | Type: ${type} | Element: ${element} | Level: ${level}`,
-    );
-    console.log(
-      `HP: ${this.getHp()} | MP: ${this.getMp()} | SP: ${this.getSp()} | SPD: ${this.getActionSpeed()}`,
-    );
-    const crit = this.getCrit();
-    console.log(`Crit: ${crit.critR}% x${crit.critD}`);
-    const def = this.getDefense();
-    console.log(`Armor: ${def.armor} | MGK RES: ${def.mgkRes}`);
+  this.toRuntime = function () {
+    buildDerived();
 
-    return {
-      hp,
-      mp,
-      sp,
-      actionSpeed,
-      critR,
-      critD,
-      armor,
-      mgkRes,
-      stats: { ...stats },
-    };
-  };
+    const levelSkills = getLevelSkills(type, level);
+    const equipmentSkills = getEquipmentSkills(equipment);
 
-  this.toRuntime = () => {
-    const maxHp = this.getHp();
-    const maxMp = this.getMp();
-    const maxSp = this.getSp();
-    const { armor, mgkRes } = this.getDefense();
-    const { critR, critD } = this.getCrit();
+    const skills = [...new Set([...levelSkills, ...equipmentSkills])];
 
     return {
       name,
@@ -154,19 +131,34 @@ export function Character(
       level,
       type,
       rarity,
+
       block,
-      stats,
+
+      stats: { ...stats },
+
+      skills,
+
       attributes: {
-        hp: maxHp,
-        maxHp,
-        mp: maxMp,
-        maxMp,
-        sp: maxSp,
-        maxSp,
+        hp,
+        maxHp: hp,
+        mp,
+        maxMp: mp,
+        sp,
+        maxSp: sp,
+
+        atk: physAtk,
+        matk: mgkAtk,
+
+        actionSpeed,
+
         armor,
         mgkRes,
+
         critR,
         critD,
+
+        eva,
+        blockRate,
       },
     };
   };

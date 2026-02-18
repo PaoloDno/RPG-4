@@ -52,7 +52,7 @@ export default function initializeCharacter (selectedHeroes, level = 1) {
           agi: 0,
           dex: 0,
         },
-        skills: ["Slash", "Ki_Strike", "Mana_Blast"],
+        skills: [],
         equipment: {
           weapon: null,
           head: null,

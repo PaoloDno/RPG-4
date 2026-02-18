@@ -20,6 +20,7 @@
 
 .tile {
   width: 100%;
+  position: relative;
   aspect-ratio: 1/1;
   display: flex;
   align-items: center;
@@ -31,10 +32,10 @@
 
 .tile.player { background: #e4fae5; }
 .tile.monster { background: #f44336; }
-.tile.stairsDown { background: #d38e28; }
-.tile.stairsUp { background: #df8e15; }
+.tile.stairDown { background: #28abd3; }
+.tile.stairUp { background: #15dfbd; }
 .tile.hidden { opacity: 0.45; cursor:default;}
 .tile.shadow { opacity: 0.9; cursor: default;}
-.tile.off { background: black;}
+.tile.void { background: black;}
 .tile.floor { background: green;}
-.tile.block { background: rgb(53, 29, 1);}
+.tile.wall { background: rgb(102, 39, 3);}

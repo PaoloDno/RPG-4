@@ -1,5 +1,14 @@
+import { Character } from "../../logic/characters/Character.js";
+import { getstate } from "../SaveManager/savemange.js";
+
 export function createEnemy(monsterData, floor = 1) {
-  const level = floor + Math.floor(Math.random() * 3) + 1;
+
+  const state = getstate();
+  const { world } = state;
+  const { week } = world;
+
+
+  const level = floor + Math.floor(Math.random() * 3) + Math.floor(1 * week );
 
   const {
     name,
@@ -22,7 +31,6 @@ export function createEnemy(monsterData, floor = 1) {
     type,
     baseStats,
     growthStats,
-    {},
     rarity,
     block
   );

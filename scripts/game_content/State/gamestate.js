@@ -9,6 +9,14 @@ export const defaultPlayerGameState = {
     // items
   ],
 
+  ingredients: [
+    // ingredients
+  ],
+
+  inventory: [
+    // equipment
+  ],
+
   keyItems: [
     // lore items,
   ],
@@ -44,6 +52,7 @@ export const defaultPlayerGameState = {
   world: {
     max_floor: 1,
     day: 1,
+    week: 1,
     time: 7, // every tile move add 1
     phase: "morning",
     progress: 0,

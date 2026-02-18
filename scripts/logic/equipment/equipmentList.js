@@ -1,246 +1,152 @@
-export const EquipmentList = {
-
-  IronSword: {
+const EquipmentList = [
+  // ===== WEAPONS =====
+  {
+    id: 0,
+    key: "IronSword",
     name: "Iron Sword",
     slot: "weapon",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      str: 5,
-      dex: 5
-    },
-
-    growthStats: {
-      str: 1.4,
-    }
+    skill: "Slash",
+    baseStats: { str: 5, dex: 5 },
+    growthStats: { str: 1.4 }
   },
 
-  MageStaff: {
+  {
+    id: 1,
+    key: "MageStaff",
     name: "Mage Staff",
     slot: "weapon",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      mgk: 5,
-      mna: 5
-    },
-
-    growthStats: {
-      mgk: 1.4,
-    }
+    baseStats: { mgk: 5, mna: 5 },
+    growthStats: { mgk: 1.4 }
   },
 
-  MinthrilDagger: {
+  {
+    id: 2,
+    key: "MinthrilDagger",
     name: "Minthril Dagger",
     slot: "weapon",
     rarity: 4,
     element: "wind",
-
-    baseStats: {
-      str: 5,
-      dex: 5,
-      agi: 5
-    },
-
-    growthStats: {
-      str: 1.2,
-      agi: 1.2,
-      dex: 1.3,
-    }
+    baseStats: { str: 5, dex: 5, agi: 5 },
+    growthStats: { str: 1.2, agi: 1.2, dex: 1.3 }
   },
 
-  LegendaryLightSword: {
+  {
+    id: 3,
+    key: "LegendaryLightSword",
     name: "Legendary Light Sword",
     slot: "weapon",
     rarity: 5,
     element: "light",
-
-    baseStats: {
-      str: 6,
-      dex: 4,
-      agi: 4,
-      spd: 5,
-      stm: 4,
-    },
-
-    growthStats: {
-      str: 1.6,
-      dex: 1.2,
-      agi: 1.2,
-      spd: 1.1,
-      stm: 1.1
-    }
+    baseStats: { str: 6, dex: 4, agi: 4, spd: 5, stm: 4 },
+    growthStats: { str: 1.6, dex: 1.2, agi: 1.2, spd: 1.1, stm: 1.1 }
   },
 
-
-  // CHEST
-
-  LeatherArmor: {
+  // ===== CHEST =====
+  {
+    id: 4,
+    key: "LeatherArmor",
     name: "Leather Armor",
     slot: "chest",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      def: 5,
-      hlt: 5
-    },
-
-    growthStats: {
-      hlt: 1.2
-    }
+    baseStats: { def: 5, hlt: 5 },
+    growthStats: { hlt: 1.2 }
   },
 
-  AdventurerUniform: {
+  {
+    id: 5,
+    key: "AdventurerUniform",
     name: "Adventurer Uniform",
     slot: "chest",
     rarity: 4,
     element: "base",
-
-    baseStats: {
-      def: 5,
-      hlt: 5,
-      res: 5,
-    },
-
-    growthStats: {
-      def: 1.1,
-      hlt: 1.2,
-      res: 1.1,
-    }
+    baseStats: { def: 5, hlt: 5, res: 5 },
+    growthStats: { def: 1.1, hlt: 1.2, res: 1.1 }
   },
 
-  LichRobe: {
+  {
+    id: 6,
+    key: "LichRobe",
     name: "Lich Robe",
     slot: "chest",
     rarity: 5,
     element: "dark",
-
-    baseStats: {
-      mgk: 5,
-      mna: 5,
-      res: 5,
-    },
-    
-    growthStats: {
-      mgk: 1.2,
-      mna: 1.2,
-      res: 1.4,
-    }
+    baseStats: { mgk: 5, mna: 5, res: 5 },
+    growthStats: { mgk: 1.2, mna: 1.2, res: 1.4 }
   },
 
-  //BOOTS
-
-  MilitaryBoots: {
+  // ===== BOOTS =====
+  {
+    id: 7,
+    key: "MilitaryBoots",
     name: "Military Boots",
     slot: "boots",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      spd: 4,
-      hlt: 4
-    },
-
-    growthStats: {
-      spd: 1.1,
-      hlt: 1.1
-    }
+    baseStats: { spd: 4, hlt: 4 },
+    growthStats: { spd: 1.1, hlt: 1.1 }
   },
 
-  
-  WalkerBoots: {
+  {
+    id: 8,
+    key: "WalkerBoots",
     name: "Walker Boots",
     slot: "boots",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      spd: 4,
-      dex: 4
-    },
-
-    growthStats: {
-      spd: 1.1,
-      dex: 1.1,
-    }
+    baseStats: { spd: 4, dex: 4 },
+    growthStats: { spd: 1.1, dex: 1.1 }
   },
 
-  
-  ShadowBoots: {
+  {
+    id: 9,
+    key: "ShadowBoots",
     name: "Shadow Boots",
     slot: "boots",
     rarity: 4,
     element: "dark",
-
-    baseStats: {
-      spd: 4,
-      dex: 4,
-      def: 4,
-    },
-
-    growthStats: {
-      spd: 1.2,
-      dex: 1.1,
-      def: 1.1,
-    }
+    baseStats: { spd: 4, dex: 4, def: 4 },
+    growthStats: { spd: 1.2, dex: 1.1, def: 1.1 }
   },
 
-  // gloves 
-
-  HandyGloves: {
+  // ===== GLOVES =====
+  {
+    id: 10,
+    key: "HandyGloves",
     name: "Handy Gloves",
     slot: "gloves",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      def: 4,
-      res: 4
-    },
-
-    growthStats: {
-      def: 1.2,
-      res: 1.1,
-    }
+    baseStats: { def: 4, res: 4 },
+    growthStats: { def: 1.2, res: 1.1 }
   },
 
-  
-  FluffyMittens: {
+  {
+    id: 11,
+    key: "FluffyMittens",
     name: "Fluffy Mittens",
     slot: "gloves",
     rarity: 3,
     element: "base",
-
-    baseStats: {
-      hlt: 4,
-      sta: 4
-    },
-
-    growthStats: {
-      hlt: 1.2,
-      sta: 1.1,
-    }
+    baseStats: { hlt: 4, sta: 4 },
+    growthStats: { hlt: 1.2, sta: 1.1 }
   },
 
-  // ACCESSORIES
-
-  ManaRing: {
+  // ===== ACCESSORIES =====
+  {
+    id: 12,
+    key: "ManaRing",
     name: "Mana Ring",
-    slot: "accessories",
+    slot: "accessory",
     rarity: 3,
     element: "base",
+    baseStats: { mgk: 3, mna: 3 },
+    growthStats: { mgk: 1.1, mna: 1.1 }
+  }
+];
 
-    baseStats: {
-      mgk: 3,
-      mna: 3,
-    },
-
-    growthStats: {
-      mgk: 1.1,
-      mna: 1.1,
-    }
-  },
-};
+export default EquipmentList;

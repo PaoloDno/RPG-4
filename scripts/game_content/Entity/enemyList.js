@@ -28,7 +28,10 @@ export const enemyList = {
     minfloor: 1,
     maxfloor: 10,
     drop: [
-      "OldDagger", 20, 10
+      { type: "ingredient", key: "GoblinEar"},
+      { type: "ingredient", key: "OldCloth"},
+      { type: "ingredient", key: "OldDagger"},
+      , 20, 10
     ]
   },
 
@@ -60,7 +63,9 @@ export const enemyList = {
     minfloor: 1,
     maxfloor: 10,
     drop: [
-      "OldRobe", "OldStaff", 20, 10
+      { type: "ingredient", key: "GoblinEar"},
+      { type: "ingredient", key: "OldCloth"},
+      20, 10
     ]
   },
 
@@ -94,7 +99,9 @@ export const enemyList = {
     minfloor: 5,
     maxfloor: 10,
     drop: [
-      "OrcClub", 50, 80
+      {type: "ingredient", key: "WoodenChip" },
+      {type: "Equipment", key: "OrcWoodenClub" },
+      50, 80
     ]
   },
 };

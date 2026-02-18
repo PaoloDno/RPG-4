@@ -1,4 +1,7 @@
-import { getstate, getStateWorld, setstate } from "../../game_content/SaveManager/savemange.js";
+import {
+  getstate,
+  setstate,
+} from "../../game_content/SaveManager/savemange.js";
 
 const DAY_PHASES = [
   { name: "Night", start: 0, end: 5 },
@@ -15,22 +18,30 @@ export function getDayPhase(hour) {
 
 export function timePlusOne() {
   const state = getstate();
-  let { time, day } = state.world;
 
-  time += 1;
+  let { time = 0, day = 1 } = state.world;
 
-  if (time >= 24) { time = 0; day++; }
+  time++;
 
+  if (time >= 24) {
+    time = 0;
+    day++;
+  }
+
+  let week = Math.ceil(day / 7);
   const dayPhase = getDayPhase(time);
 
+  console.log(`Day ${day} - ${time}:00 (${dayPhase})`);
+  
   setstate({
     world: {
       ...state.world,
       time,
       day,
+      week,
       dayPhase,
     },
   });
 
-  return { time, day, dayPhase };
+  return { time, day, week, dayPhase };
 }
