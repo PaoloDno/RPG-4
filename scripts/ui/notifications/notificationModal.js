@@ -1,45 +1,55 @@
-export function showNotification({
-  text,
-  speaker = null,
-  portrait = null,
-  variant = "system",
-  buttonText = "OK",
-  background = "",
-  onConfirm = null,
-}) {
+export function showNotification(config) {
+  let resolvePromise;
+
+  const promise = new Promise((resolve) => {
+    resolvePromise = resolve;
+  });
+
   const modal = document.createElement("div");
-  modal.className = `notification-modal ${variant}`;
+  modal.className = `notification-modal ${config.variant}`;
 
   modal.innerHTML = `
-    <div class="notification-backdrop"></div>
-
-    <div class="notification-box"
-         style="background-image:url('${background}')">
-
-      ${
-        variant === "hero"
-          ? `
-          <div class="notification-header">
-            ${
-              portrait
-                ? `<img class="notification-portrait" src="${portrait}" />`
-                : ""
-            }
-            <span class="notification-speaker">${speaker}</span>
-          </div>
-          `
-          : ""
-      }
-
-      <p class="notification-text">${text}</p>
-      <button id="notify-btn">${buttonText}</button>
+    <div class="notification-box">
+      <div class="notification-header"></div>
+      <p class="notification-text"></p>
+      <button id="notify-btn">${config.buttonText || "OK"}</button>
     </div>
   `;
 
   app.appendChild(modal);
 
-  modal.querySelector("#notify-btn").onclick = () => {
-    if (typeof onConfirm === "function") onConfirm();
+  const textEl = modal.querySelector(".notification-text");
+  const headerEl = modal.querySelector(".notification-header");
+  const button = modal.querySelector("#notify-btn");
+
+  function setContent({ text, speaker, portrait }) {
+    textEl.textContent = text || "";
+
+    headerEl.innerHTML = speaker
+      ? `
+        ${portrait ? `<img src="${portrait}" />` : ""}
+        <span>${speaker}</span>
+      `
+      : "";
+  }
+
+  function close() {
     modal.remove();
+
+    config.onConfirm?.();
+
+    resolvePromise();
+  }
+
+  button.onclick = close;
+
+  // set initial content
+  setContent(config);
+
+  return {
+    promise,
+    setContent,
+    close,
+    modal,
   };
 }

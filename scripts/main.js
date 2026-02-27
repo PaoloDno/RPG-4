@@ -1,8 +1,8 @@
-import EventBus from "./eventbus.js";
-import ScreenManager from "../ui/screenmanager.js";
-import TitleScreen from "../ui/screens/titlescreen.js";
-import StartScreen from "../ui/screens/startscreen.js";
-import { TownScreen } from "../ui/screens/town/townscreen.js";
+import EventBus from "./core/eventbus.js";
+import ScreenManager from "./ui/screenmanager.js";
+import TitleScreen from "./ui/screens/titlescreen.js";
+import StartScreen from "./ui/screens/startscreen.js";
+import { TownScreen } from "./ui/screens/town/townscreen.js";
 
 const app = document.getElementById("app");
 const screens = new ScreenManager(app);

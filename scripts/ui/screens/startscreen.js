@@ -6,6 +6,7 @@ import InstantializeCharacter from "../../logic/characters/InstantializeCharacte
 import ScreenManager from "../screenmanager.js";
 import { Chapter0 } from "../../game_content/Stories/chapter0.js";
 import DialougeScreen from "./dialoguescreen.js";
+import { showNotification } from "../notifications/notificationModal.js";
 const screens = new ScreenManager(app);
 /* =========================
    HELPERS
@@ -153,16 +154,15 @@ const StartScreen = {
     // Create party button
     document
       .getElementById("create-party-btn")
-      .addEventListener("click", () => {
+      .addEventListener("click", async () => {
         if (this.selectedHeroes.length === 0) {
           alert("Pick at least one hero!");
           return;
         }
-        let initalizedCharacters = InstantializeCharacter([...this.selectedHeroes]);
+        const initalizedCharacters = await InstantializeCharacter([...this.selectedHeroes]);
         setstate({ party: initalizedCharacters });
         const logg = getstate();
         console.log("gamestat:", logg);
-
         //EventBus.emit("CREATE_PARTY", { heroes: this.selectedHeroes });
         console.log("Selected heroes:", this.selectedHeroes);
         screens.show("scene_0");

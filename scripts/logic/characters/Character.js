@@ -1,12 +1,26 @@
+import {
+  aggregateEquipmentStats,
+  getEquipmentSkills,
+  getSkillsByLevel,
+} from "./InstantializeCharacter.js";
+
 export function Character(
   name,
-  element = "aqua",
-  level = 60,
+  element = "base",
+  level = 1,
   type = "Adventurer",
   baseStats = {},
   growthStats = {},
-  equipment = {},
-  equipemntStats = {
+  rarity = 3,
+  equipment = {
+    weapon: "",
+    head: "",
+    chest: "",
+    arms: "",
+    boots: "",
+    accessories: "",
+  },
+  equipementStats = {
     str: 0,
     mgk: 0,
     sta: 0,
@@ -18,7 +32,7 @@ export function Character(
     agi: 0,
     dex: 0,
   },
-  rarity = 3,
+  skills = {},
   block = 1,
 ) {
   const stats = {
@@ -41,7 +55,7 @@ export function Character(
   });
 
   Object.keys(stats).forEach((stat) => {
-    stats[stat] += equipemntStats[stat] || 0;
+    stats[stat] += equipementStats[stat] || 0;
   });
 
   let hp, mp, sp;
@@ -62,7 +76,7 @@ export function Character(
       Math.floor((stats.str + stats.agi) / 2) +
       Math.floor(stats.mna / 2);
   }
-  
+
   function calcAttack() {
     physAtk = stats.str * 4 + Math.floor(stats.dex / 5 + stats.sta / 5);
     mgkAtk = stats.mgk * 4 + Math.floor(stats.res / 5 + stats.mna / 5);
@@ -120,10 +134,14 @@ export function Character(
   this.toRuntime = function () {
     buildDerived();
 
-    const levelSkills = getLevelSkills(type, level);
+    const classSkills = getSkillsByLevel(skills, level);
+    
+    const levelSkills = Array.isArray(classSkills) ? classSkills : [];
+
     const equipmentSkills = getEquipmentSkills(equipment);
 
-    const skills = [...new Set([...levelSkills, ...equipmentSkills])];
+    const mergedSkills = [...new Set([...levelSkills, ...equipmentSkills])];
+    console.log(classSkills,)
 
     return {
       name,
@@ -136,7 +154,7 @@ export function Character(
 
       stats: { ...stats },
 
-      skills,
+      skills: [...mergedSkills],
 
       attributes: {
         hp,
@@ -146,8 +164,8 @@ export function Character(
         sp,
         maxSp: sp,
 
-        atk: physAtk,
-        matk: mgkAtk,
+        physAtk,
+        mgkAtk,
 
         actionSpeed,
 

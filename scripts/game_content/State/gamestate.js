@@ -22,7 +22,7 @@ export const defaultPlayerGameState = {
   ],
 
   gold: 100,
-  party: [
+  partyInitialize: [
     // Example structure for a character
     // You can have multiple members here
     /*
@@ -41,11 +41,33 @@ export const defaultPlayerGameState = {
       critR, critD,
       armor, mgkRes
       },
-      stats: { }
+      stats: {
+        str,
+        mgk,
+        ...
+      }
       skills: [],
       equipment: {},
       exp: 0,
     },
+    */
+  ],
+  party: [
+    /*
+    {
+      name: "",
+      exp: "",
+      level: 1,
+      equipmnets: {
+        warrior: "",
+        head: "",
+        chest: "",  
+        arms: "",
+        boots: "",
+        accessories: "",    
+      }
+    }
+
     */
   ],
 

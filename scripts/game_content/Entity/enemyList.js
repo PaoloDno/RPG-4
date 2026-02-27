@@ -24,7 +24,8 @@ export const enemyList = {
       str: 1.1,
     },
     
-    skills: ["Slash", "Stab"],
+    skills: {0: "Slash", 10: "BackStab"},
+    chibisprite: new URL("../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url).href,
     minfloor: 1,
     maxfloor: 10,
     drop: [
@@ -59,7 +60,8 @@ export const enemyList = {
       mgk: 1.2,
     },
 
-    skills: ["Slash", "Stab"],
+    skills: {0: "BluntForce", 10: "DarkCurse"},
+    chibisprite: new URL("../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url).href,
     minfloor: 1,
     maxfloor: 10,
     drop: [
@@ -95,12 +97,13 @@ export const enemyList = {
       def: 2,
     },
 
-    skills: ["Slash", "Stab"],
+    skills: { 0:"BluntForce", 0: "HeavySwing"},
+    chibisprite: new URL("../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url).href,
     minfloor: 5,
     maxfloor: 10,
     drop: [
       {type: "ingredient", key: "WoodenChip" },
-      {type: "Equipment", key: "OrcWoodenClub" },
+      {type: "equipment", key: "OrcWoodenClub" },
       50, 80
     ]
   },

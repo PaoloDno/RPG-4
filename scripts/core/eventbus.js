@@ -17,9 +17,6 @@ const EventBus = {
   this.events = {};
   },
 
-
-
-  // New method to console active events
   logActiveEvents() {
     console.log("Active EventBus events:");
     for (const [event, handlers] of Object.entries(this.events)) {

@@ -3,7 +3,7 @@ export const HERO_RESPONSE_LIST = {
   0: {
     default: "JOINED THE PARTY",
 
-    Arin: "Nice to meet everyone, Im a gradute of Notrh Magic academy",
+    Arin: "Nice to meet everyone, Im a gradute of Northen Magic Academy",
     Ares: "Hello Nice to meet everyone! IM a proud wariior of southern tribe .",
     Asa: "*yawn* *stretches* domo.",
     Arceus: "Grace the lord",

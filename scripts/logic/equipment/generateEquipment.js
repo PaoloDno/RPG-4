@@ -12,16 +12,19 @@ export function generateEquipment(equipmentId) {
   const template = EquipmentList[equipmentId];
   if (!template) return null;
 
+  let maxLevel = getMaxLevelByRarity(template.rarity);
+  let level = Math.ceil(Math.random() * maxLevel);
+
   return {
-    templateId: generateId(),
+    uId: generateId(),
+    templateId: equipmentId,
     name: template.name,
     slot: template.slot,
     rarity: template.rarity,
     element: template.element,
-    level: 1,
-    maxLevel: getMaxLevelByRarity(template.rarity),
-    exp: 0,
-    stats: calculateStats(template, 1)
+    skill: template.skill,
+    level,
+    stats: calculateStats(template, level)
   };
 }
 
@@ -33,7 +36,7 @@ function calculateStats(template, level = 1) {
     const base = template.baseStats[stat];
     const growth = template.growthStats[stat] || 0;
 
-    stats[stat] = Math.floor(base + growth * (level - 1));
+    stats[stat] = Math.floor(base + (growth * (level - 1)));
   }
 
   return stats;
