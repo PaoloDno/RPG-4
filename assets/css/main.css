@@ -2,6 +2,7 @@
 @import url("../css/dialouge.css");
 @import url("../css/notification.css");
 @import url("../css/map.css");
+@import url("../css/header.css");
 
 * {
   margin: 0;
@@ -12,7 +13,7 @@
 :root {
   /* Backgrounds */
   --bg-main: #0E1117;      /* main screen background */
-  --bg-panel: #463921e0;    /* panels / cards */
+  --bg-panel: #2b2315e0;    /* panels / cards */
 
   /* Accents */
   --accent-gold: #E6C15A; /* RPG gold */
@@ -32,18 +33,21 @@ body {
   overflow-x: hidden;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.5rem;
+  padding: 1.5rem;
   gap: 1rem;
   color: var(--text-main);
 }
 
 #header {
-  display: flex;
   justify-content: center;
   align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
   width: 90vw;
   max-width: 800px;
   height: 10vh;
+  min-height: 80px;
   background-color: var(--bg-panel);
   border-radius: 0.75rem;
   color: var(--accent-gold);
@@ -52,9 +56,9 @@ body {
 #app {
   display: flex;
   width: 90vw;
-  height: 82vh;
   max-width: 800px;
-  max-height: 700px;
+  height: 450px;
+  min-height: 70vh;
   background-color: var(--bg-panel);
   padding: 0.75rem;
   border-radius: 1rem;
@@ -130,3 +134,4 @@ button {
   min-height: 5vh;
   font-size: 0.85rem;
 }
+

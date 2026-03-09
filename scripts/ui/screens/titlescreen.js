@@ -1,8 +1,22 @@
 import EventBus from "../../core/eventbus.js";
+import ScreenManager from "../screenmanager.js";
+import StartScreen from "./startscreen.js";
+
+// intiatialize buttons
+const app = document.getElementById("app");
+const screens = new ScreenManager(app);
 
 const TitleScreen = {
-  enter(payload) {
+  enter() {
     console.log("Entering Title Screen");
+    
+    screens.register("start", StartScreen);
+
+    EventBus.on("GAME_START", () => {
+      screens.show("start");
+    });
+
+
   },
 
   render(app) {
@@ -14,13 +28,12 @@ const TitleScreen = {
       </div>
     `;
 
+    
+    // Emit an event when the player clicks "Start"
     document.getElementById("start-btn").addEventListener("click", () => {
-      // Emit an event when the player clicks "Start"
       EventBus.emit("GAME_START");
     });
   }
 };
 
 export default TitleScreen;
-
-// Listen to EventBus

@@ -1,5 +1,5 @@
 import { enemyList } from "../../../../game_content/Entity/enemyList.js";
-import { getstate, setstate } from "../../../../game_content/SaveManager/savemange.js";
+import { getstate, setstate } from "../../../../core/SaveManager/savemange.js";
 import { Character } from "../../../../logic/characters/Character.js";
 import { generateId } from "../../../../logic/utils/generateId.js";
 import { distanceHelper } from "../map/maps.js";

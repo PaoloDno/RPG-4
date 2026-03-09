@@ -1,7 +1,7 @@
 
 import EventBus from "../../core/eventbus.js";
 import { HeroList } from "../../game_content/Entity/heroesList.js";
-import { getstate, getStateParty, setstate } from "../../game_content/SaveManager/savemange.js";
+import { getstate, getStateParty, setstate } from "../../core/SaveManager/savemange.js";
 import InstantializeCharacter from "../../logic/characters/InstantializeCharacter.js";
 import ScreenManager from "../screenmanager.js";
 import { Chapter0 } from "../../game_content/Stories/chapter0.js";

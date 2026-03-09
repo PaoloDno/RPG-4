@@ -1,4 +1,4 @@
-import { getStateParty } from "../../game_content/SaveManager/savemange.js";
+import { getStateParty } from "../../core/SaveManager/savemange.js";
 import { PORTRAIT_DIALOUGE } from "../../game_content/Stories/portraitdialouge.js";
 import { getHeroResponse } from "../../game_content/Stories/responseList.js";
 

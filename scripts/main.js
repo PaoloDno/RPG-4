@@ -1,50 +1,76 @@
-import EventBus from "./core/eventbus.js";
+import AudioManager from "./core/AudioManager/AudioManager.js";
+import { AudioHeader } from "./ui/header/Component/AudioHeader.js";
+import { GoldHeader } from "./ui/header/Component/GoldHeader.js";
+import { TimeHeader } from "./ui/header/Component/TimeHeader.js";
+import HeaderManager from "./ui/header/headerUI.js";
 import ScreenManager from "./ui/screenmanager.js";
 import TitleScreen from "./ui/screens/titlescreen.js";
-import StartScreen from "./ui/screens/startscreen.js";
-import { TownScreen } from "./ui/screens/town/townscreen.js";
 
+const screens = ScreenManager.getInstance();
 const app = document.getElementById("app");
-const screens = new ScreenManager(app);
+const headerRoot = document.getElementById("header");
+const audio = new AudioManager();
+
+audio.loadSound("clickInGame", "./../assets/music/effect/Coins.wav");
 
 // Register screens
 screens.register("title", TitleScreen);
-screens.register("start", StartScreen);
-screens.register("Town", TownScreen);
 
 // Show title screen
 screens.show("title");
 
-
-
-
-
-
 // short debounce for clicks
 let clickLocked = false;
 
-document.addEventListener("click", (e) => {
-  if (clickLocked) {
-    e.stopPropagation();
-    e.preventDefault();
-    return;
-  }
+document.addEventListener(
+  "click",
+  (e) => {
+    if (clickLocked) {
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
 
-  clickLocked = true;
+    clickLocked = true;
 
-  setTimeout(() => {
-    clickLocked = false;
-  }, 350);
-}, true); // capture phase
+    let soundStarted = false;
 
+    if (!soundStarted) {
+      audio.playSound("clickInGame");
+      soundStarted = true;
+    }
 
+    headerManager.render();
 
-// Buttons
-// event busses
+    setTimeout(() => {
+      clickLocked = false;
+    }, 350);
+  },
+  true,
+);
 
-EventBus.on("GAME_START", () => {
-  console.log("Player clicked Start! Transition to next screen here...");
-  EventBus.logActiveEvents();
-  screens.show("start");
-  EventBus.logActiveEvents();
-});
+// bgm
+
+let musicStarted = false;
+
+document.addEventListener(
+  "click",
+  (e) => {
+    if (!musicStarted) {
+      audio.playMusic("./../assets/music/bgm/Title.wav");
+      musicStarted = true;
+    }
+  },
+  { once: true },
+);
+
+// Header
+
+const headerManager = new HeaderManager(headerRoot);
+headerManager.register("logo", TimeHeader); // logo
+headerManager.register("party", TimeHeader); // party
+headerManager.register("gold", GoldHeader); //
+headerManager.register("audio", AudioHeader);
+headerManager.register("music", TimeHeader); // sound
+
+headerManager.render();

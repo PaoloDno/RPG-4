@@ -1,6 +1,6 @@
 import EventBus from "../core/eventbus.js";
-import { getStateWorld } from "../game_content/SaveManager/savemange.js";
-
+import { getStateWorld } from "../core/SaveManager/savemange.js";
+import HeaderManager from "./header/headerUI.js";
 
 let instance = null;
 
@@ -17,8 +17,8 @@ export default class ScreenManager {
   }
 
   render() {
-    if (this.current?.render) {
-      this.current.render(this.app);
+    if (this.currentScreen?.render) {
+      this.currentScreen.render(this.app);
     }
   }
 
@@ -29,6 +29,9 @@ export default class ScreenManager {
   show(name, payload) {
     EventBus.clear();
     console.log(getStateWorld());
+
+    console.log("ARE WE RENDERING?");
+
     const screen = this.screens.get(name);
     if (!screen) return console.warn(`Screen ${name} not found`);
 

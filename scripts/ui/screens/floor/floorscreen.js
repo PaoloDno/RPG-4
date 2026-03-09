@@ -2,7 +2,7 @@ import EventBus from "../../../core/eventbus.js";
 import {
   getstate,
   setstate,
-} from "../../../game_content/SaveManager/savemange.js";
+} from "../../../core/SaveManager/savemange.js";
 import ScreenManager from "../../screenmanager.js";
 import { TownScreen } from "../town/townscreen.js";
 import { renderMapTiles } from "./floorlogic/floorInitializer.js";

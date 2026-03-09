@@ -1,5 +1,5 @@
 import { HeroList } from "../../game_content/Entity/heroesList.js";
-import { getstate } from "../../game_content/SaveManager/savemange.js";
+import { getstate } from "../../core/SaveManager/savemange.js";
 import { showNotification } from "../../ui/notifications/notificationModal.js";
 import { Character } from "./Character.js";
 

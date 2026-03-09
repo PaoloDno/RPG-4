@@ -1,7 +1,7 @@
 import {
   getstate,
   setstate,
-} from "../../../../game_content/SaveManager/savemange.js";
+} from "../../../../core/SaveManager/savemange.js";
 import { generateId } from "../../../../logic/utils/generateId.js";
 import { distanceHelper, floormaps } from "../map/maps.js";
 import { createChest } from "./floorChest.js";

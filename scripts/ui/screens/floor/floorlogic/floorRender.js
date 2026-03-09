@@ -1,4 +1,4 @@
-import { getstate } from "../../../../game_content/SaveManager/savemange.js";
+import { getstate } from "../../../../core/SaveManager/savemange.js";
 
 export function renderTile(tileData) {
   const state = getstate();

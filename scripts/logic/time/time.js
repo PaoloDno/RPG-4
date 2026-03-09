@@ -1,7 +1,7 @@
 import {
   getstate,
   setstate,
-} from "../../game_content/SaveManager/savemange.js";
+} from "../../core/SaveManager/savemange.js";
 
 const DAY_PHASES = [
   { name: "Night", start: 0, end: 5 },
