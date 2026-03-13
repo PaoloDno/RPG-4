@@ -1,4 +1,5 @@
 import AudioManager from "./core/AudioManager/AudioManager.js";
+import { subscribe } from "./core/SaveManager/savemange.js";
 import { AudioHeader } from "./ui/header/Component/AudioHeader.js";
 import { GoldHeader } from "./ui/header/Component/GoldHeader.js";
 import { TimeHeader } from "./ui/header/Component/TimeHeader.js";
@@ -12,6 +13,11 @@ const headerRoot = document.getElementById("header");
 const audio = new AudioManager();
 
 audio.loadSound("clickInGame", "./../assets/music/effect/Coins.wav");
+
+// subscribe header
+subscribe(() => {
+  headerManager.render();
+});
 
 // Register screens
 screens.register("title", TitleScreen);
@@ -33,21 +39,22 @@ document.addEventListener(
 
     clickLocked = true;
 
-    let soundStarted = false;
-
-    if (!soundStarted) {
-      audio.playSound("clickInGame");
-      soundStarted = true;
-    }
-
-    headerManager.render();
-
     setTimeout(() => {
       clickLocked = false;
     }, 350);
   },
   true,
 );
+
+// click
+document.addEventListener(
+  "click",
+  () => {
+    audio.playSound("clickInGame");
+  },
+  true
+);
+
 
 // bgm
 

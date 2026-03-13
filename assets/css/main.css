@@ -2,7 +2,7 @@
 @import url("../css/dialouge.css");
 @import url("../css/notification.css");
 @import url("../css/map.css");
-@import url("../css/header.css");
+@import url("../css/headerStyles/header.css");
 
 * {
   margin: 0;
@@ -38,20 +38,6 @@ body {
   color: var(--text-main);
 }
 
-#header {
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.75rem;
-  width: 90vw;
-  max-width: 800px;
-  height: 10vh;
-  min-height: 80px;
-  background-color: var(--bg-panel);
-  border-radius: 0.75rem;
-  color: var(--accent-gold);
-}
 
 #app {
   display: flex;
@@ -74,7 +60,7 @@ h1 {
 }
 
 p {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 

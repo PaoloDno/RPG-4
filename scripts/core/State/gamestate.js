@@ -79,7 +79,8 @@ export const defaultPlayerGameState = {
     progress: 0,
     volume: 0.5,
     volumeModal: false,
-    statsModal: false,
+    bagModal: false,
+    timeModal: false, 
   },
 
   position: {
@@ -112,3 +113,4 @@ export const defaultPlayerGameState = {
     deaths: 0,
   },
 };
+

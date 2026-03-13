@@ -54,11 +54,11 @@ export default class AudioManager {
     this.masterVolume = volume;
 
     if (this.music) {
-      this.music.volume = volume;
+      this.music.volume = volume * 0.75;
     }
 
     this.sounds.forEach(sound => {
-      sound.volume = volume;
+      sound.volume = volume * 0.3;
     });
 
   }
