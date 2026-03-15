@@ -60,13 +60,12 @@ export const defaultPlayerGameState = {
       equipmnets: {
         warrior: "",
         head: "",
-        chest: "",  
+        chest: "AdventurerVest",  
         arms: "",
         boots: "",
         accessories: "",    
-      }
+      },
     }
-
     */
   ],
 
@@ -78,6 +77,7 @@ export const defaultPlayerGameState = {
     dayPhase: "Morning",
     progress: 0,
     volume: 0.5,
+    sceneState: {},
     volumeModal: false,
     bagModal: false,
     timeModal: false, 

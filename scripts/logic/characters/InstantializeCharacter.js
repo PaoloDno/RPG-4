@@ -2,74 +2,9 @@ import { HeroList } from "../../game_content/Entity/heroesList.js";
 import { getstate } from "../../core/SaveManager/savemange.js";
 import { showNotification } from "../../ui/notifications/notificationModal.js";
 import { Character } from "./Character.js";
+import { CharacterList } from "./characterList.js";
+import { generateEquipment } from "../equipment/generateEquipment.js";
 
-const EMPTY_STATS = {
-  str: 0,
-  mgk: 0,
-  sta: 0,
-  mna: 0,
-  def: 0,
-  res: 0,
-  hlt: 0,
-  spd: 0,
-  agi: 0,
-  dex: 0,
-};
-
-export function aggregateEquipmentStats(equipment = {}, element) {
-  const total = { ...EMPTY_STATS };
-
-  // safety: must be object-like
-  if (!equipment || typeof equipment !== "object") return total;
-
-  for (const slot in equipment) {
-    const item = equipment[slot];
-    if (!item || typeof item !== "object") continue;
-
-    const stats = item.stats;
-    if (!stats || typeof stats !== "object") continue;
-
-    const isElementMatch = item.element && item.element === characterElement;
-    const multiplier = isElementMatch ? 1.1 : 1;
-
-
-    for (const stat in stats) {
-      if (!(stat in total)) continue;
-
-      const value = Number(stats[stat]);
-
-      // prevent NaN pollution
-      if (!Number.isFinite(value)) continue;
-
-      total[stat] +=  Math.ceil(value * multiplier);
-    }
-  }
-
-  return total;
-}
-
-  // HERO SKILLS BY LEVEL
-export function getSkillsByLevel(skills, level) {
-  if (!skills || typeof skills !== "object") return [];
-
-  const lvl = Number(level);
-  if (!Number.isFinite(lvl)) return [];
-
-  return Object.entries(skills)
-    .map(([reqLevel, skill]) => [Number(reqLevel), skill])
-    .filter(([reqLevel, skill]) => Number.isFinite(reqLevel) && lvl >= reqLevel && skill)
-    .sort((a, b) => a[0] - b[0]) // 👈 ensure correct order
-    .map(([_, skill]) => skill);
-}
-
-  // EQUIPMENT to SKILLS
-export function getEquipmentSkills(equipment) {
-  if (!equipment || typeof equipment !== "object") return [];
-
-  return Object.values(equipment)
-    .filter(item => item && typeof item === "object" && item.skill)
-    .map(item => item.skill);
-}
 
 export default async function initializeCharacter (selectedHeroes) {
 
@@ -78,12 +13,18 @@ export default async function initializeCharacter (selectedHeroes) {
 
     return selectedHeroes
       .map(name => {
-      const heroTemplate = HeroList[name];
+      const heroTemplate = CharacterList[name];
+      
       if (!heroTemplate) {
         console.warn(`Hero ${name} not found in HeroList`);
         return null;
       }
       
+      let beginnerWeapon = generateEquipment( heroTemplate.equipment.weapon, 1 );
+      let beginnerArmor = generateEquipment( "AdventurerVest", 1 );
+
+      console.log(beginnerArmor);
+      console.log(beginnerWeapon);
 
       const charInstance = new Character(
         heroTemplate.name,
@@ -92,10 +33,19 @@ export default async function initializeCharacter (selectedHeroes) {
         heroTemplate.type,
         heroTemplate.baseStats,
         heroTemplate.growthStats,
-        heroTemplate.rarity
+        heroTemplate.rarity,
+        {
+          weapon: beginnerWeapon,
+          head: "",
+          chest: beginnerArmor,
+          arms: "",
+          boots: "",
+          accessories: "",
+        },
+        heroTemplate.skills,
       );
 
-      const { name: runtimeName, element, level, type, rarity, stats, skills, attributes } = charInstance.toRuntime();
+      const { name: runtimeName, element, level, type, rarity, stats, skills, attributes, equipementStats, equipment} = charInstance.toRuntime();
 
       return {
         name: runtimeName,
@@ -108,29 +58,9 @@ export default async function initializeCharacter (selectedHeroes) {
         attributes,
         class: heroTemplate.type,
         level: level,
-        attributes,
         stats,
-        equipmentStats: {
-          str: 0,
-          mgk: 0,
-          sta: 0,
-          mna: 0,
-          def: 0,
-          res: 0,
-          hlt: 0,
-          spd: 0,
-          agi: 0,
-          dex: 0,
-        },
-        equipments: {
-          weapon: null,
-          head: null,
-          chest: null,
-          pants: null,
-          gloves: null,
-          boots: null,
-          accessories: null,
-        },
+        equipment,
+        equipementStats,
         exp: 0,
         chibisprite: heroTemplate.chibisprite
       };

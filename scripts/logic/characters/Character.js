@@ -1,13 +1,9 @@
-import {
-  aggregateEquipmentStats,
-  getEquipmentSkills,
-  getSkillsByLevel,
-} from "./InstantializeCharacter.js";
+import { generateSkill } from "../skills/generateSkill.js";
 
 export function Character(
   name,
   element = "base",
-  level = 1,
+  level = 20,
   type = "Adventurer",
   baseStats = {},
   growthStats = {},
@@ -20,6 +16,7 @@ export function Character(
     boots: "",
     accessories: "",
   },
+  skills = {},
   equipementStats = {
     str: 0,
     mgk: 0,
@@ -32,60 +29,51 @@ export function Character(
     agi: 0,
     dex: 0,
   },
-  skills = {},
   block = 1,
 ) {
   const stats = {
-    str: 20,
-    mgk: 20,
-    sta: 20,
-    mna: 20,
-    def: 20,
-    res: 20,
-    hlt: 20,
-    spd: 20,
-    agi: 20,
-    dex: 20,
+    str: 5,
+    mgk: 5,
+    sta: 5,
+    mna: 5,
+    def: 5,
+    res: 5,
+    hlt: 5,
+    spd: 5,
+    agi: 5,
+    dex: 5,
     ...baseStats,
   };
 
   Object.keys(stats).forEach((stat) => {
-    const growth = growthStats[stat] || 1;
+    const growth = growthStats[stat] || 1.1;
     stats[stat] += Math.floor(growth * (level - 1));
   });
 
-  Object.keys(stats).forEach((stat) => {
-    stats[stat] += equipementStats[stat] || 0;
+  const equipmentTotals = aggregateEquipmentStats(equipment, element);
+
+  Object.keys(equipementStats).forEach((stat) => {
+    stat += equipmentTotals[stat] || 0;
   });
 
   let hp, mp, sp;
-  let physAtk, mgkAtk, actionSpeed;
+  let actionSpeed;
   let critR, critD, eva, blockRate;
   let armor, mgkRes;
 
   function calcResources() {
-    hp = stats.hlt * 8 + Math.floor(((stats.def + stats.res) / 4) * 5);
+    hp = Math.floor((stats.hlt * 5) + stats.def + stats.res);
 
-    mp =
-      stats.mna * 5 +
-      Math.floor((stats.mgk + stats.dex) / 2) +
-      Math.floor(stats.sta / 2);
+    mp = Math.floor(stats.mna * 4 + ((stats.mgk + stats.dex) / 2) + stats.sta);
 
-    sp =
-      stats.sta * 5 +
-      Math.floor((stats.str + stats.agi) / 2) +
-      Math.floor(stats.mna / 2);
-  }
-
-  function calcAttack() {
-    physAtk = stats.str * 4 + Math.floor(stats.dex / 5 + stats.sta / 5);
-    mgkAtk = stats.mgk * 4 + Math.floor(stats.res / 5 + stats.mna / 5);
+    sp = Math.floor(
+      stats.sta * 4 + ((stats.str + stats.dex) / 2) + stats.mna
+    )
   }
 
   function calcActionSpeed() {
     actionSpeed = Math.floor(
-      (stats.spd * 2 + stats.agi + Math.floor((stats.dex + stats.sta) / 2)) /
-        10,
+      (stats.spd * 3) + (stats.agi * 2) + stats.dex + stats.sta
     );
   }
 
@@ -124,7 +112,6 @@ export function Character(
 
   function buildDerived() {
     calcResources();
-    calcAttack();
     calcActionSpeed();
     calcCrit();
     calcDefense();
@@ -132,55 +119,142 @@ export function Character(
   }
 
   this.toRuntime = function () {
-    buildDerived();
+  buildDerived();
 
-    const classSkills = getSkillsByLevel(skills, level);
-    
-    const levelSkills = Array.isArray(classSkills) ? classSkills : [];
+  const attributes = {
+    ...stats,
+      hp,
+      maxHp: hp,
+      mp,
+      maxMp: mp,
+      sp,
+      maxSp: sp,
+      actionSpeed,
+      armor,
+      mgkRes,
+      critR,
+      critD,
+      eva,
+      blockRate,
+  }
 
-    const equipmentSkills = getEquipmentSkills(equipment);
+  const classSkills = getSkillsByLevel(skills, level);
+  console.log("classSkill", classSkills);
+  const levelSkills = Array.isArray(classSkills) ? classSkills : [];
+  console.log("levelSkill", levelSkills);
+  const equipmentSkills = getEquipmentSkills(equipment);
 
-    const mergedSkills = [...new Set([...levelSkills, ...equipmentSkills])];
-    console.log(classSkills,)
+  const mergedSkills = [...new Set([...levelSkills, ...equipmentSkills])];
+  console.log(mergedSkills);
 
-    return {
-      name,
-      element,
-      level,
-      type,
-      rarity,
+  const runtimeSkills = mergedSkills.map((skill) =>
+    {
+      let skillgen = generateSkill(skill, stats);
+      console.log("skillGENds", skillgen.description());
+      
+      console.log("skillGENpr", skillgen.preview());
+      
+      console.log("skillGENpc", skillgen.payCost());
+    return skillgen;
+    }
+  );
 
-      block,
+  return {
+    name,
+    element,
+    level,
+    type,
+    rarity,
 
-      stats: { ...stats },
+    skills: runtimeSkills,
 
-      skills: [...mergedSkills],
-
-      attributes: {
-        hp,
-        maxHp: hp,
-        mp,
-        maxMp: mp,
-        sp,
-        maxSp: sp,
-
-        physAtk,
-        mgkAtk,
-
-        actionSpeed,
-
-        armor,
-        mgkRes,
-
-        critR,
-        critD,
-
-        eva,
-        blockRate,
-      },
-    };
+    equipment,
+    equipementStats,
+    attributes,
   };
+};
 }
+
+
+const EMPTY_STATS = {
+  str: 0,
+  mgk: 0,
+  sta: 0,
+  mna: 0,
+  def: 0,
+  res: 0,
+  hlt: 0,
+  spd: 0,
+  agi: 0,
+  dex: 0,
+};
+
+const DEFAULT_EQUIPMENT = {
+  weapon: null,
+  head: null,
+  chest: null,
+  arms: null,
+  boots: null,
+  accessories: null,
+};
+
+export function aggregateEquipmentStats(equipment = {}, CharElement) {
+  const total = { ...EMPTY_STATS };
+
+  // safety: must be object-like
+  if (!equipment || typeof equipment !== "object") return total;
+
+  for (const slot in equipment) {
+    const item = equipment[slot];
+    if (!item || typeof item !== "object") continue;
+
+    const stats = item.stats;
+    if (!stats || typeof stats !== "object") continue;
+
+    const isElementMatch = item.element && item.element === CharElement;
+    const multiplier = isElementMatch ? 1.1 : 1;
+
+
+    for (const stat in stats) {
+      if (!(stat in total)) continue;
+
+      const value = Number(stats[stat]);
+
+      // prevent NaN pollution
+      if (!Number.isFinite(value)) continue;
+
+      total[stat] +=  Math.ceil(value * multiplier);
+    }
+  }
+
+  console.log("EquipmentStat: ", total);
+
+  return total;
+}
+
+  // HERO SKILLS BY LEVEL
+export function getSkillsByLevel(skills, level) {
+  if (!skills || typeof skills !== "object") return [];
+
+  const lvl = Number(level);
+  if (!Number.isFinite(lvl)) return [];
+
+  return Object.entries(skills)
+    .map(([reqLevel, skill]) => [Number(reqLevel), skill])
+    .filter(([reqLevel, skill]) => Number.isFinite(reqLevel) && lvl >= reqLevel && skill)
+    .sort((a, b) => a[0] - b[0]) // 👈 ensure correct order
+    .map(([_, skill]) => skill);
+}
+
+  // EQUIPMENT to SKILLS
+export function getEquipmentSkills(equipment) {
+  if (!equipment || typeof equipment !== "object") return [];
+
+  return Object.values(equipment)
+    .filter(item => item && typeof item === "object" && item.skill)
+    .map(item => item.skill);
+}
+
 
 //**
 // const ELEMENT_ADVANTAGE = {

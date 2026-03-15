@@ -1,225 +1,281 @@
-/**
- * 
- *
- * {
-    category: "damage" | "heal",
-    type: "physical" | "magical",
-    elem: "base",
-
-    target: "enemy" | "ally" | "self" | "allEnemies" | "allAllies",
-
-    hits: 1, // number | function(user)
-
-    scaling: "physAtk" | "mgkAtk",
-
-    power: 1.2, // multiplier
-
-    flat: 10,   // base value
-
-    spCost: (user, totalValue) => number,
-    mpCost: (user, totalValue) => number,
-
-    effect: ({ user, target, value, isLastHit }) => {}
-   }
-  */
-
+let skillIcon =
+  new URL("./../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url)
+    .href;
 
 export const skillList = {
+
+  PoisonSting: {
+    category: "damage",
+    type: "physical",
+    elem: "base",
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.mgk * 2),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.mgk * 2 - target.res),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.sp -= 5;
+    },
+
+    effect: ({ target }) => {
+      if (Math.random() < 0.3) {
+        applyStatus(target, "poison", {
+          duration: 3,
+          power: 0.05
+        });
+      }
+    },
+
+    description: ({ value }) =>
+      `Launch a poisoned needle that deals ${value} damage with a chance to poison.`,
+
+    IconSprite: skillIcon
+  },
 
   Slash: {
     category: "damage",
     type: "physical",
     elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "physAtk",
-    power: 1,
-    flat: 10,
-    spCost: () => 0,
-    mpCost: () => 0,
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.str + user.spd + user.dex + 10),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str + user.spd + user.dex + 10),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.sp -= 3;
+    },
+
+    description: ({ value }) =>
+      `A basic sword slash that deals ${value} damage.`,
+
+    IconSprite: skillIcon
+  },
+
+  Strike: {
+    category: "damage",
+    type: "physical",
+    elem: "base",
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.str + user.spd + user.dex + 10),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str + user.spd + user.dex + 10),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.sp -= 3;
+    },
+
+    description: ({ value }) =>
+      `A basic sword slash that deals ${value} damage.`,
+
+    IconSprite: skillIcon
   },
 
   BluntForce: {
     category: "damage",
     type: "physical",
     elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "physAtk",
-    power: 1.3,
-    flat: 12,
-    spCost: () => 0,
-    mpCost: () => 0,
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.str * 1.3 + 12),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str * 1.3 + 12),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.sp -= 6;
+    },
+
+    description: ({ value }) =>
+      `Deliver a crushing blow that deals ${value} damage.`,
+
+    IconSprite: skillIcon
   },
 
   HeavySwing: {
     category: "damage",
     type: "physical",
     elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "physAtk",
-    power: 1.3,
-    flat: 12,
-    spCost: () => 0,
-    mpCost: () => 0,
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.str * 1.4 + 10),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str * 1.4 + 10),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.sp -= 7;
+    },
+
+    description: ({ value }) =>
+      `Swing your weapon with great force dealing ${value} damage.`,
+
+    IconSprite: skillIcon
   },
 
   BackStab: {
     category: "damage",
     type: "physical",
     elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "physAtk",
-    power: 1.3,
-    flat: 12,
-    spCost: () => 0,
-    mpCost: () => 0,
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.dex * 1.4 + user.spd + 10),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.dex * 1.4 + user.spd + 10),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.sp -= 5;
+    },
+
+    description: ({ value }) =>
+      `Strike a weak point dealing ${value} damage.`,
+
+    IconSprite: skillIcon
   },
 
   ManaBullet: {
     category: "damage",
     type: "magical",
     elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "mgkAtk",
-    power: 1,
-    flat: 10,
-    spCost: () => 0,
-    mpCost: (user, dmg) => Math.floor(dmg / 2),
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.mgk * 1.5 + 10),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.mgk * 1.5 + 10),
+
+    hits: [1],
+
+    Cost: ({ user, value }) => {
+      user.mp -= Math.floor(value * 0.4);
+    },
+
+    description: ({ value }) =>
+      `Fire a condensed mana projectile dealing ${value} magic damage.`,
+
+    IconSprite: skillIcon
   },
 
-  DarkCurse: {
+  IceBlast: {
     category: "damage",
     type: "magical",
     elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "mgkAtk",
-    power: 1,
-    flat: 10,
-    spCost: () => 0,
-    mpCost: (user, dmg) => Math.floor(dmg / 2),
-  },
+    target: "single",
 
-  KiStrike: {
-    category: "damage",
-    type: "physical",
-    elem: "base",
-    target: "enemy",
-    hits: 1,
-    scaling: "physAtk",
-    power: 1.4,
-    flat: 8,
-    spCost: (user, dmg) => Math.floor(dmg / 2),
-    mpCost: () => 0,
-  },
+    compute: ({ user }) =>
+      Math.floor(user.mgk * 1.5 + 10),
 
-  ManaBlast: {
-    category: "damage",
-    type: "magical",
-    elem: "base",
-    target: "allEnemies",
-    hits: 1,
-    scaling: "mgkAtk",
-    power: 1.5,
-    flat: 14,
-    spCost: () => 0,
-    mpCost: (user, dmg) => Math.floor(dmg / 2),
+    formula: ({ user, target }) =>
+      Math.floor(user.mgk * 1.5 + 10),
+
+    hits: [1],
+
+    Cost: ({ user, value }) => {
+      user.mp -= Math.floor(value * 0.4);
+    },
+
+    description: ({ value }) =>
+      `Fire a condensed mana projectile dealing ${value} magic damage.`,
+
+    IconSprite: skillIcon
   },
 
   FlameSlash: {
     category: "damage",
     type: "physical",
     elem: "pyro",
-    target: "enemy",
-    hits: 2,
-    scaling: "physAtk",
-    power: 0.9,
-    flat: 8,
-    spCost: (user, dmg) => Math.floor(dmg / 2),
-    mpCost: user => Math.floor(user.mgkAtk * 0.25),
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.str * 0.9 + user.mgk * 0.4 + 8),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str * 0.9 + user.mgk * 0.4 + 8),
+
+    hits: [1, 1],
+
+    Cost: ({ user, value }) => {
+      user.sp -= 6;
+      user.mp -= 4;
+    },
+
+    description: ({ value }) =>
+      `A flaming slash that strikes twice for about ${value} damage each.`,
+
+    IconSprite: skillIcon
   },
 
   Heal: {
     category: "heal",
     type: "magical",
     elem: "holy",
-    target: "ally",
-    hits: 1,
-    scaling: "mgkAtk",
-    power: 1.2,
-    flat: 15,
-    spCost: () => 0,
-    mpCost: user => 10,
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.mgk * 2.2),
+
+    formula: ({ user }) =>
+      Math.floor(user.mgk * 2.2),
+
+    hits: [1],
+
+    Cost: ({ user }) => {
+      user.mp -= 10;
+    },
+
+    description: ({ value }) =>
+      `Restore ${value} HP to an ally.`,
+
+    IconSprite: skillIcon
   },
-
-  HealingRain: {
-    category: "heal",
+  
+  HolySmite: {
+    category: "damage",
     type: "magical",
-    elem: "holy",
-    target: "allAllies",
-    hits: 2,
-    scaling: "mgkAtk",
-    power: 0.8,
-    flat: 10,
-    mpCost: user => 25,
+    elem: "light",
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.mgk * 2.2),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.mgk * 2.2),
+
+    hits: [1],
+
+    Cost: ({ user, value }) => {
+      user.mp -= 10;
+    },
+
+    description: ({ value }) =>
+      `Restore ${value} HP to an ally.`,
+
+    IconSprite: skillIcon
   }
+
 };
-
-function getSkillValue(user, skill) {
-  const atk = user[skill.scaling];
-
-  return skill.flat + atk * skill.power;
-}
-
-
-function resolveTargets(user, skill, selectedTarget) {
-  switch (skill.target) {
-    case "enemy": return [selectedTarget];
-    case "ally": return [selectedTarget];
-    case "self": return [user];
-    case "allEnemies": return getEnemyParty(user);
-    case "allAllies": return getAllyParty(user);
-  }
-}
-
-function executeSkill(user, skill, selectedTarget) {
-
-  const targets = resolveTargets(user, skill, selectedTarget);
-
-  const hits = typeof skill.hits === "function"
-    ? skill.hits(user)
-    : skill.hits;
-
-  let totalValue = 0;
-
-  for (const target of targets) {
-    for (let i = 0; i < hits; i++) {
-
-      const value = getSkillValue(user, skill);
-
-      if (skill.category === "damage") {
-        const dmg = calculateDamage(user, target, value, skill);
-        applyDamage(target, dmg);
-        totalValue += dmg;
-      }
-
-      if (skill.category === "heal") {
-        applyHeal(target, value);
-        totalValue += value;
-      }
-
-      skill.effect?.({
-        user,
-        target,
-        value,
-        isLastHit: i === hits - 1
-      });
-    }
-  }
-
-  spendCost(user, skill, totalValue);
-}

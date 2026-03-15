@@ -14,7 +14,7 @@ export function showNotification(config) {
         <div class="notification-container">
         <div class="notification-header"></div>
         <p class="notification-text"></p>
-        <button id="notification-btn">${config.buttonText || "OK"}</button>
+        <button class="notification-btn">${config.buttonText || "OK"}</button>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@ export function showNotification(config) {
 
   const textEl = modal.querySelector(".notification-text");
   const headerEl = modal.querySelector(".notification-header");
-  const button = modal.querySelector("#notification-btn");
+  const button = modal.querySelector(".notification-btn");
   const box = modal.querySelector(".notification-box");
   const backdrop = modal.querySelector(".notification-backdrop");
 

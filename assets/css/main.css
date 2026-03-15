@@ -55,12 +55,17 @@ body {
 
 /** text */
 h1 {
-  font-size: 1rem;
+  font-size: 24px;
+  color: var(--accent-gold);
+}
+
+h3 {
+  font-size: 16px;
   color: var(--accent-gold);
 }
 
 p {
-  font-size: 0.85rem;
+  font-size: 14px;
   color: var(--text-muted);
 }
 

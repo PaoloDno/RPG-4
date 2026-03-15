@@ -7,6 +7,7 @@ import ScreenManager from "../screenmanager.js";
 import { Chapter0 } from "../../game_content/Stories/chapter0.js";
 import DialougeScreen from "./dialoguescreen.js";
 import { showNotification } from "../notifications/notificationModal.js";
+import { CharacterList } from "../../logic/characters/characterList.js";
 const screens = new ScreenManager(app);
 /* =========================
    HELPERS
@@ -16,14 +17,14 @@ screens.register("scene_0", DialougeScreen(Chapter0));
 
 // Calculate total stars of selected heroes
 function calculateStars(heroKeys) {
-  return heroKeys.reduce((sum, key) => sum + HeroList[key].rarity, 0);
+  return heroKeys.reduce((sum, key) => sum + CharacterList[key].rarity, 0);
 }
 
 // Render hero cards HTML from an array of keys
 function renderHeroCards(keys) {
   return keys
     .map((key) => {
-      const hero = HeroList[key];
+      const hero = CharacterList[key];
       return `
         <div class="hero-card">
           <input type="checkbox" id="hero-${key}" value="${key}" />
@@ -44,7 +45,7 @@ function renderHeroCards(keys) {
 function renderSelectedHeroes(keys) {
   return keys
     .map((key) => {
-      const hero = HeroList[key];
+      const hero = CharacterList[key];
       return `
         <div class="hero-card-small">
           <div class="hero-display-box-small">
@@ -71,7 +72,7 @@ function reorderCards(container) {
     const aKey = a.querySelector("input").value;
     const bKey = b.querySelector("input").value;
 
-    return HeroList[aKey].rarity - HeroList[bKey].rarity;
+    return CharacterList[aKey].rarity - CharacterList[bKey].rarity;
   });
 
   cards.forEach((card) => container.appendChild(card));
@@ -90,7 +91,7 @@ const StartScreen = {
   },
 
   render(app) {
-    const allHeroKeys = Object.keys(HeroList);
+    const allHeroKeys = Object.keys(CharacterList);
 
     // initial render
     app.innerHTML = `
@@ -125,7 +126,7 @@ const StartScreen = {
       selectedDisplay.innerHTML = renderSelectedHeroes(this.selectedHeroes);
 
       checkboxes.forEach((box) => {
-        const hero = HeroList[box.value];
+        const hero = CharacterList[box.value];
         const isChecked = box.checked;
 
         if (!isChecked) {
