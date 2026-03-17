@@ -2,6 +2,7 @@ import AudioManager from "./core/AudioManager/AudioManager.js";
 import { subscribe } from "./core/SaveManager/savemange.js";
 import { AudioHeader } from "./ui/header/Component/AudioHeader.js";
 import { GoldHeader } from "./ui/header/Component/GoldHeader.js";
+import { PartyHeader } from "./ui/header/Component/PartyHeader.js";
 import { TimeHeader } from "./ui/header/Component/TimeHeader.js";
 import HeaderManager from "./ui/header/headerUI.js";
 import ScreenManager from "./ui/screenmanager.js";
@@ -75,7 +76,7 @@ document.addEventListener(
 
 const headerManager = new HeaderManager(headerRoot);
 headerManager.register("logo", TimeHeader); // logo
-headerManager.register("party", TimeHeader); // party
+headerManager.register("party", PartyHeader); // party
 headerManager.register("gold", GoldHeader); //
 headerManager.register("audio", AudioHeader);
 headerManager.register("music", TimeHeader); // sound

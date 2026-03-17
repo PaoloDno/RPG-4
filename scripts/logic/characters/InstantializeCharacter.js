@@ -29,7 +29,7 @@ export default async function initializeCharacter (selectedHeroes) {
       const charInstance = new Character(
         heroTemplate.name,
         heroTemplate.element,
-        1,
+        10,
         heroTemplate.type,
         heroTemplate.baseStats,
         heroTemplate.growthStats,
@@ -45,7 +45,7 @@ export default async function initializeCharacter (selectedHeroes) {
         heroTemplate.skills,
       );
 
-      const { name: runtimeName, element, level, type, rarity, stats, skills, attributes, equipementStats, equipment} = charInstance.toRuntime();
+      const { name: runtimeName, baseStats, element, level, type, rarity, stats, skills, attributes, equipementStats, equipment} = charInstance.toRuntime();
 
       return {
         name: runtimeName,
@@ -53,7 +53,7 @@ export default async function initializeCharacter (selectedHeroes) {
         level,
         type,
         rarity,
-        stats,
+        baseStats,
         skills,
         attributes,
         class: heroTemplate.type,

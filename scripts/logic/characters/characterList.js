@@ -13,7 +13,7 @@ export const CharacterList = {
       weapon: "WoodenStaff"
     },
 
-    skills: { 0: "ManaBullet", 5: "IceBlast"},
+    skills: { 0: "ManaBullet", 5: "IceBlast", 6: "Explosion"},
 
     chibisprite: new URL("./../../../assets/sprites/heroes/chibi/Arin.png", import.meta.url).href
   },
@@ -32,7 +32,7 @@ export const CharacterList = {
       weapon: "WoodenSword"
     },
 
-    skills: { 0: "Slash", 5: "FlameSlash"},
+    skills: { 0: "Slash", 5: "FlameSlash", 6:"FinalSlash"},
 
     chibisprite: new URL("./../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url).href
   },

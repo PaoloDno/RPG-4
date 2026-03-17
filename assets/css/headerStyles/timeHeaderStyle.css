@@ -1,6 +1,21 @@
 /* time header */
+.time-widget-button {
+  display:flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20%;
+  width: 50px;
+  height: 50px;
+  padding: 30px;
+  background-color: #010814;
+  color: goldenrod;
+  cursor: pointer;
+  overflow: hidden;
+}
+
 .time-orbit{
-  position: absolute;
+  position: ralative;
   top: 10px;
   left: 10px;
   right: 10px;
@@ -12,32 +27,35 @@
   height: 40px;
   border-radius: 50%;
   border: 2px solid #555;
-  overflow: hidden;
-};
-
-.time-orbit div{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform-origin:0 0;
-  font-size:14px;
-};
-
-.time-orbit[data-phase="Morning"]{
   background: linear-gradient(#04425a, #07232e);
 };
 
-.time-orbit[data-phase="Noon"]{
-  background: linear-gradient(#06516e, #064263);
+.time-orbit div {
+  position:absolute;
+  bottom:50%;
+  right:50%;
+  background-color: red;
+  transform-origin: 0 0;
+  font-size: 14px;
 };
 
-.time-orbit[data-phase="Evening"]{
-  background: linear-gradient(#054ca8, #040327);
-};
+/* time of day phases override */
+/* exact match */
+.time-orbit[data-phase="Morning"] {
+  background: linear-gradient(#04425a, #07232e);
+}
 
-.time-orbit[data-phase="Night"]{
+.time-orbit[data-phase="Noon"] {
+  background: linear-gradient(#4a97b6, #e4db89);
+}
+
+.time-orbit[data-phase="Evening"] {
+  background: linear-gradient(#a83305, #040327);
+}
+
+.time-orbit[data-phase="Night"] {
   background: linear-gradient(#0a0f2c, #000000);
-};
+}
 
 .time-modal-content {
   display: flex;

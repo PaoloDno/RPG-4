@@ -1,32 +1,36 @@
-let skillIcon =
-  new URL("./../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url)
-    .href;
+let skillIcon = new URL(
+  "./../../../assets/sprites/heroes/chibi/Ares.png",
+  import.meta.url,
+).href;
+
+function cost(hp=0, mp=0, sp=0){
+  hp = Math.floor(hp);
+  mp = Math.floor(mp);
+  sp = Math.floor(sp);
+  return { hp, mp, sp }
+}
 
 export const skillList = {
-
   PoisonSting: {
+    name: "Poison Sting",
     category: "damage",
     type: "physical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.mgk * 2),
+    compute: ({ user }) => Math.floor(user.mgk * 2),
 
-    formula: ({ user, target }) =>
-      Math.floor(user.mgk * 2 - target.res),
+    formula: ({ user, target }) => Math.floor(user.mgk * 2),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.sp -= 5;
-    },
+    Cost: ({ user, value }) => cost(0, value * 1.5, 0),
 
     effect: ({ target }) => {
       if (Math.random() < 0.3) {
         applyStatus(target, "poison", {
           duration: 3,
-          power: 0.05
+          power: 0.05,
         });
       }
     },
@@ -34,248 +38,313 @@ export const skillList = {
     description: ({ value }) =>
       `Launch a poisoned needle that deals ${value} damage with a chance to poison.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   Slash: {
+    name: "Slash",
     category: "damage",
     type: "physical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.str + user.spd + user.dex + 10),
+    compute: ({ user }) => Math.floor(user.str + user.spd + user.dex + 10),
 
     formula: ({ user, target }) =>
       Math.floor(user.str + user.spd + user.dex + 10),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.sp -= 3;
-    },
+    
+    Cost: ({ user, value }) => cost(0, 0, value * 0.5),
 
     description: ({ value }) =>
       `A basic sword slash that deals ${value} damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
+  },
+
+  Scratch: {
+    name: "Slash",
+    category: "damage",
+    type: "physical",
+    elem: "base",
+    target: "single",
+
+    compute: ({ user }) => Math.floor(user.str * 0.5 + user.spd * 0.5 + user.dex + 10),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str * 0.5 + user.spd * 0.5 + user.dex + 10),
+
+    hits: [1],
+
+    
+    Cost: ({ user, value }) => cost(0, 0, value * 0.3),
+
+    description: ({ value }) =>
+      `A scratch attack that deals ${value} damage.`,
+
+    IconSprite: skillIcon,
   },
 
   Strike: {
+    name: "Strike",
     category: "damage",
     type: "physical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.str + user.spd + user.dex + 10),
+    compute: ({ user }) => Math.floor(user.str + user.spd + user.dex + 10),
 
     formula: ({ user, target }) =>
       Math.floor(user.str + user.spd + user.dex + 10),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.sp -= 3;
-    },
+    
+    Cost: ({ user, value }) => cost(0, 0, value * 0.5),
 
     description: ({ value }) =>
-      `A basic sword slash that deals ${value} damage.`,
+      `A basic striking damage that deals ${value} physical damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   BluntForce: {
+    name: "Blunt Force",
     category: "damage",
     type: "physical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.str * 1.3 + 12),
+    compute: ({ user }) => Math.floor(user.str * 2 + 12),
 
-    formula: ({ user, target }) =>
-      Math.floor(user.str * 1.3 + 12),
+    formula: ({ user, target }) => Math.floor(user.str * 2 + 12),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.sp -= 6;
-    },
+    
+    Cost: ({ user, value }) => cost(0, 0, value * 0.5),
 
     description: ({ value }) =>
       `Deliver a crushing blow that deals ${value} damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   HeavySwing: {
+    name: "Heavy Swing",
     category: "damage",
     type: "physical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.str * 1.4 + 10),
+    compute: ({ user }) => Math.floor(user.str * 3 + 10),
 
-    formula: ({ user, target }) =>
-      Math.floor(user.str * 1.4 + 10),
+    formula: ({ user, target }) => Math.floor(user.str * 3 + 10),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.sp -= 7;
-    },
+    
+    Cost: ({ user, value }) => cost(0, 0, value * 0.5),
 
     description: ({ value }) =>
       `Swing your weapon with great force dealing ${value} damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   BackStab: {
+    name: "Back Stab",
     category: "damage",
     type: "physical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.dex * 1.4 + user.spd + 10),
+    compute: ({ user }) => Math.floor(user.str * 2 + user.dex * 1.2 + user.spd),
 
     formula: ({ user, target }) =>
-      Math.floor(user.dex * 1.4 + user.spd + 10),
+      Math.floor(user.str * 2 + user.dex * 1.2 + user.spd),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.sp -= 5;
-    },
+    
+    Cost: ({ user, value }) => cost(0, 0, value * 0.75),
 
-    description: ({ value }) =>
-      `Strike a weak point dealing ${value} damage.`,
+    description: ({ value }) => `Strike a weak point dealing ${value} damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   ManaBullet: {
+    name: "Mana Bullet",
     category: "damage",
     type: "magical",
     elem: "base",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.mgk * 1.5 + 10),
+    compute: ({ user }) => Math.floor(user.mgk * 2 + user.mana * 2 + 10),
 
-    formula: ({ user, target }) =>
-      Math.floor(user.mgk * 1.5 + 10),
+    formula: ({ user, target }) => Math.floor(user.mgk * 2 + user.mana * 2 + 10),
 
     hits: [1],
 
-    Cost: ({ user, value }) => {
-      user.mp -= Math.floor(value * 0.4);
-    },
+    
+    Cost: ({ user, value }) => cost(0, value * 0.7, 0),
 
     description: ({ value }) =>
       `Fire a condensed mana projectile dealing ${value} magic damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   IceBlast: {
+    name: "Ice Blast",
     category: "damage",
     type: "magical",
-    elem: "base",
+    elem: "aqua",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.mgk * 1.5 + 10),
+    compute: ({ user }) => Math.floor(user.mgk * 3.5 + 10),
 
-    formula: ({ user, target }) =>
-      Math.floor(user.mgk * 1.5 + 10),
+    formula: ({ user, target }) => Math.floor(user.mgk * 3.5 + 10),
 
     hits: [1],
 
-    Cost: ({ user, value }) => {
-      user.mp -= Math.floor(value * 0.4);
-    },
+    Cost: ({ user, value }) => cost(0, value * 0.7, 0),
 
     description: ({ value }) =>
-      `Fire a condensed mana projectile dealing ${value} magic damage.`,
+      `Cold mana condensed and fire as projectile dealing ${value} magic damage.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   FlameSlash: {
+    name: "FlameSlash",
     category: "damage",
     type: "physical",
     elem: "pyro",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.str * 0.9 + user.mgk * 0.4 + 8),
+    compute: ({ user }) => Math.floor(user.str * 3 + user.mgk * 1.4 + 8),
 
     formula: ({ user, target }) =>
-      Math.floor(user.str * 0.9 + user.mgk * 0.4 + 8),
+      Math.floor(user.str * 3 + user.mgk * 1.4 + 8),
 
-    hits: [1, 1],
+    hits: [0.5, 1],
 
-    Cost: ({ user, value }) => {
-      user.sp -= 6;
-      user.mp -= 4;
-    },
+    Cost: ({ user, value }) => cost(0, value * 0.4, value * 0.4),
 
     description: ({ value }) =>
-      `A flaming slash that strikes twice for about ${value} damage each.`,
+      `A flaming slash that strikes twice for about ${value * 0.5} and ${value} damage each.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
 
   Heal: {
+    name: "Heal",
     category: "heal",
     type: "magical",
     elem: "holy",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.mgk * 2.2),
+    compute: ({ user }) => Math.floor(user.mgk * 4),
 
-    formula: ({ user }) =>
-      Math.floor(user.mgk * 2.2),
+    formula: ({ user }) => Math.floor(user.mgk * 4),
 
     hits: [1],
 
-    Cost: ({ user }) => {
-      user.mp -= 10;
-    },
+    Cost: ({ user, value }) => cost(0, value * 0.3 , 0),
 
-    description: ({ value }) =>
-      `Restore ${value} HP to an ally.`,
+    description: ({ value }) => `Restore ${value} HP to an ally.`,
 
-    IconSprite: skillIcon
+    IconSprite: skillIcon,
   },
-  
+
   HolySmite: {
+    name: "Holy Smite",
     category: "damage",
     type: "magical",
     elem: "light",
     target: "single",
 
-    compute: ({ user }) =>
-      Math.floor(user.mgk * 2.2),
+    compute: ({ user }) => Math.floor(user.mgk * 2),
 
     formula: ({ user, target }) =>
-      Math.floor(user.mgk * 2.2),
+      Math.floor(user.mgk * 3 + Math.floor((target.maxHp - target.hp) * 0.55)),
 
     hits: [1],
 
-    Cost: ({ user, value }) => {
-      user.mp -= 10;
-    },
+    Cost: ({ user, value }) => cost(0, value * 0.5, value * 0.2),
 
     description: ({ value }) =>
-      `Restore ${value} HP to an ally.`,
+      `use holy power of light that deals ${value} and the 55% of enemy missing hp as magical damage`,
 
-    IconSprite: skillIcon
-  }
+    IconSprite: skillIcon,
+  },
 
+  ShadowBall: {
+    name: "Shadow Ball",
+    category: "damage",
+    type: "magical",
+    elem: "dark",
+    target: "single",
+
+    compute: ({ user }) => Math.floor(user.mgk * 2.2),
+
+    formula: ({ user, target }) => Math.floor(user.mgk * 2.2),
+
+    hits: [1],
+
+    Cost: ({ user, value }) => cost(0, 0, value * 0.5),
+
+    description: ({ value }) =>
+      `Condense dark mana to a sphere that is fire that deald ${value} dark magical damage.`,
+
+    IconSprite: skillIcon,
+  },
+
+  FinalSlash: {
+    name: "Final Slash",
+    category: "damage",
+    type: "physical",
+    elem: "light",
+    target: "single",
+
+    compute: ({ user }) =>
+      Math.floor(user.str * 2.2 + (user.maxHp - user.hp) * 0.75),
+
+    formula: ({ user, target }) =>
+      Math.floor(user.str * 2.2 + (user.maxHp - user.hp) * 0.75),
+
+    hits: [1],
+
+    Cost: ({ user, value }) => cost(value * 0.4, value * 0.3, value * 0.3),
+
+    description: ({ value }) =>
+      `A hero uses his aura as a last resort, converting pain into power and dealing ${value} physical damage.`,
+
+    IconSprite: skillIcon,
+  },
+
+  Explosion: {
+    name: "Explosion",
+    category: "damage",
+    type: "magical",
+    elem: "pyro",
+    target: "all",
+
+    compute: ({ user }) => Math.floor(user.mgk * 1.2 + user.mp * 0.75),
+
+    formula: ({ user, target }) => Math.floor(user.mgk * 1.2 + user.mp * 0.75),
+
+    hits: [1],
+
+    Cost: ({ user, value }) => cost(0, value * 0.75, value * 0.25),
+
+    description: ({ value }) =>
+      `Using a horbidden spell that uses caster mana as battery to make a explosive spell that deal magical damage ${value}`,
+
+    IconSprite: skillIcon,
+  },
 };

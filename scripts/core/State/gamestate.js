@@ -80,7 +80,12 @@ export const defaultPlayerGameState = {
     sceneState: {},
     volumeModal: false,
     bagModal: false,
-    timeModal: false, 
+    timeModal: false,
+    partyModal: false,
+    titleModal: false,
+    dynamicHeaderState: {
+
+    },
   },
 
   position: {

@@ -21,7 +21,8 @@ export const enemyList = {
 
     growthStats: {
       spd: 1.2,
-      str: 1.1,
+      str: 1.2,
+      dex: 1.2
     },
     
     skills: {0: "Slash", 10: "BackStab"},
@@ -58,9 +59,10 @@ export const enemyList = {
 
     growthStats: {
       mgk: 1.2,
+      spd: 1.3,
     },
 
-    skills: {0: "BluntForce", 10: "DarkCurse"},
+    skills: {0: "BluntForce", 10: "ShadowBall"},
     chibisprite: new URL("../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url).href,
     minfloor: 1,
     maxfloor: 10,

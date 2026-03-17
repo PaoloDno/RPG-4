@@ -47,7 +47,7 @@ export function generateSkill(skillId, userStats) {
 
     // spend resource
     payCost(value) {
-      template.Cost?.({
+      return template.Cost?.({
         user: userStats,
         value
       });
