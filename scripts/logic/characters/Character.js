@@ -17,6 +17,11 @@ export function Character(
     accessories: "",
   },
   skills = {},
+  status = {
+    hp: null, 
+    mp: null, 
+    sp: null
+  },
   equipementStats = {
     str: 0,
     mgk: 0,
@@ -61,20 +66,20 @@ export function Character(
 
   console.log("Stats", stats);
   console.log("EStats", equipementStats);
-
-  let hp, mp, sp;
+  let maxHp, maxMp, maxSp;
   let actionSpeed;
   let critR, critD, eva, blockRate;
   let armor, mgkRes;
 
   function calcResources() {
-    hp = Math.floor(stats.hlt * 5 + stats.def + stats.res);
+    maxHp = Math.floor(stats.hlt * 5 + stats.def + stats.res);
 
-    mp = Math.floor(stats.mna * 4 + (stats.mgk + stats.dex) / 2 + stats.sta);
+    maxMp = Math.floor(stats.mna * 4 + (stats.mgk + stats.dex) / 2 + stats.sta);
 
-    sp = Math.floor(stats.sta * 4 + (stats.str + stats.dex) / 2 + stats.mna);
+    maxSp = Math.floor(stats.sta * 4 + (stats.str + stats.dex) / 2 + stats.mna);
   }
 
+  
   function calcActionSpeed() {
     actionSpeed = Math.floor(
       stats.spd * 3 + stats.agi * 2 + stats.dex + stats.sta,
@@ -125,14 +130,20 @@ export function Character(
   this.toRuntime = function () {
     buildDerived();
 
+    let { hp, mp, sp } = status || {};
+
+    hp = hp ?? maxHp;
+    mp = mp ?? maxMp;
+    sp = sp ?? maxSp;
+
     const attributes = {
       ...stats,
-      hp,
-      maxHp: hp,
+      hp: hp,
+      maxHp: maxHp,
       mp,
-      maxMp: mp,
+      maxMp: maxMp,
       sp,
-      maxSp: sp,
+      maxSp: maxSp,
       actionSpeed,
       armor,
       mgkRes,
@@ -212,6 +223,7 @@ export function Character(
       equipment,
       equipementStats,
       attributes,
+      block,
     };
   };
 }

@@ -69,7 +69,7 @@ export const PartyHeader = {
       <div>
         <p>No Party Yet</p>
       </div>
-      `
+      `;
     }
 
     return modal;
@@ -78,6 +78,10 @@ export const PartyHeader = {
   renderCharList(party) {
     const grid = document.createElement("div");
     grid.className = "party-grid";
+
+    let labelModal = document.createElement("span");
+    labelModal.innerText = "PARTY";
+    labelModal.className = "absolute-title";
 
     party.forEach((char, index) => {
       const card = document.createElement("div");
@@ -104,7 +108,7 @@ export const PartyHeader = {
         modalContent.append(this.renderCharacter(state.party, index));
       });
 
-      grid.append(card);
+      grid.append(labelModal, card);
     });
 
     return grid;
@@ -116,21 +120,22 @@ export const PartyHeader = {
 
     const topDiv = document.createElement("div");
     const botDiv = document.createElement("div");
-    topDiv.className = "top-div-header-party"
-    botDiv.className = "bot-div-header-party"
-    
+    topDiv.className = "top-div-header-party";
+    botDiv.className = "bot-div-header-party";
+
     const char = party[index];
 
     const name = document.createElement("h3");
     name.textContent = char.name;
+    name.className = "textContent-char-name-header-modal";
 
     const sprite = document.createElement("img");
     sprite.src = char.chibisprite;
-    sprite.className = "sprite-hero-icon";
+    sprite.className = "sprite-hero-icon-header-modal";
 
     const stats = document.createElement("div");
-    stats.className = "party-stats";
-
+    stats.className = "party-stats-party-header-modal";
+    console.log("character", char);
     stats.innerHTML = `
     <p>Class: ${char.class}</p>
     <p>Element: ${char.element}</p>
@@ -138,16 +143,19 @@ export const PartyHeader = {
   `;
 
     const nav = document.createElement("div");
-    nav.className = "party-nav";
+    nav.className = "party-nav-party-header-modal";
 
     const left = document.createElement("button");
     left.textContent = "<";
+    left.className = "button-nav-party-header-modal";
 
     const right = document.createElement("button");
     right.textContent = ">";
+    right.className = "button-nav-party-header-modal";
 
     const back = document.createElement("button");
     back.textContent = "Back";
+    back.className = "button-nav-party-header-modal";
 
     left.addEventListener("click", () => {
       index--;
@@ -175,8 +183,46 @@ export const PartyHeader = {
       container.append(this.renderCharList(state.party));
     });
 
+    const CharDetailedStats = document.createElement("div");
+    CharDetailedStats.className = "char-details-party-header-modal";
+
+    const displayStats1 = ["str", "mgk", "sta", "mna", "hlt"];
+    const displayStats2 = ["res", "def", "spd", "dex"];
+
+    CharDetailedStats.innerHTML = `
+      <p>Attributes</p>
+      <div class="attributes-party-header-modal">
+        <div>
+        ${displayStats1
+          .map(
+            (stat) => `
+          <p>
+            ${stat}: ${char.baseStats?.[stat] || 0} 
+            + ${char.equipementStats?.[stat] || 0}
+          </p>
+        `,
+          )
+          .join("")}
+        </div>
+
+        <div>
+        ${displayStats2
+          .map(
+            (stat) => `
+          <p>
+            ${stat}: ${char.baseStats?.[stat] || 0} 
+            + ${char.equipementStats?.[stat] || 0}
+          </p>
+        `,
+          )
+          .join("")}
+        </div>
+      </div>
+      `;
+
     nav.append(left, back, right);
-    topDiv.append(name, sprite, stats, nav)
+    topDiv.append(name, sprite, stats, nav);
+    botDiv.append(CharDetailedStats);
     wrapper.append(topDiv, botDiv);
 
     return wrapper;
