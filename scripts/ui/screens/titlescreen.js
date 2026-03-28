@@ -3,7 +3,7 @@ import ScreenManager from "../screenmanager.js";
 import StartScreen from "./startscreen.js";
 
 // intiatialize buttons
-const app = document.getElementById("app");
+const app = document.getElementById("game-view");
 const screens = new ScreenManager(app);
 
 const TitleScreen = {

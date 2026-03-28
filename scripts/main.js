@@ -9,8 +9,9 @@ import ScreenManager from "./ui/screenmanager.js";
 import TitleScreen from "./ui/screens/titlescreen.js";
 
 const screens = ScreenManager.getInstance();
-const app = document.getElementById("app");
-const headerRoot = document.getElementById("header");
+const headerRoot = document.getElementById("game-header");
+
+const app = document.getElementById("game-view");
 const audio = new AudioManager();
 
 audio.loadSound("clickInGame", "./../assets/music/effect/Coins.wav");
@@ -82,3 +83,4 @@ headerManager.register("audio", AudioHeader);
 headerManager.register("music", TimeHeader); // sound
 
 headerManager.render();
+

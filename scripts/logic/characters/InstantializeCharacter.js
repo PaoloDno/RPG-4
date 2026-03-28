@@ -45,7 +45,7 @@ export default async function initializeCharacter (selectedHeroes) {
         heroTemplate.skills,
       );
 
-      const { name: runtimeName, baseStats, element, level, type, rarity, stats, skills, attributes, equipementStats, equipment} = charInstance.toRuntime();
+      const { name: runtimeName, baseStats, element, level, type, rarity, status, skills, attributes, equipementStats, equipment} = charInstance.toRuntime();
 
       return {
         name: runtimeName,
@@ -58,7 +58,12 @@ export default async function initializeCharacter (selectedHeroes) {
         attributes,
         class: heroTemplate.type,
         level: level,
-        stats,
+        status: {
+          ...status,
+          exp: 0,
+          toLvlUp: 50,
+          totalExp: 0,
+        },
         equipment,
         equipementStats,
         exp: 0,

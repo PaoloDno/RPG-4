@@ -136,6 +136,16 @@ export function Character(
     mp = mp ?? maxMp;
     sp = sp ?? maxSp;
 
+    const newStatus = {
+      ...status,
+      hp,
+      maxHp,
+      mp,
+      maxMp,
+      sp,
+      maxSp,
+    }
+
     const attributes = {
       ...stats,
       hp: hp,
@@ -224,6 +234,7 @@ export function Character(
       equipementStats,
       attributes,
       block,
+      status: newStatus,
     };
   };
 }

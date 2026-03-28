@@ -18,8 +18,7 @@
   --text-muted: #A0A6B3;
 }
 
-
-#header {
+#game-header {
   justify-content: center;
   align-items: center;
   display: grid;
@@ -84,7 +83,7 @@
   padding: 12px;
   min-width: 60vw;
   max-width: 400px;
-  height: 50vh;
+  height: 70vh;
   box-shadow:0 2px 6px rgba(0,0,0,0.1);
   z-index:30;
 }

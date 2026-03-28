@@ -8,6 +8,9 @@ import { Chapter0 } from "../../game_content/Stories/chapter0.js";
 import DialougeScreen from "./dialoguescreen.js";
 import { showNotification } from "../notifications/notificationModal.js";
 import { CharacterList } from "../../logic/characters/characterList.js";
+
+
+const app = document.getElementById("game-view");
 const screens = new ScreenManager(app);
 /* =========================
    HELPERS

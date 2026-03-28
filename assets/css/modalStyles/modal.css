@@ -1,0 +1,7 @@
+@import url("./equipmentModalStyles.css");
+
+.modal {
+  position: absolute;
+  display: flex;
+  inset: 0;
+}

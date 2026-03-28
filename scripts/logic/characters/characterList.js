@@ -15,7 +15,7 @@ export const CharacterList = {
 
     skills: { 0: "ManaBullet", 5: "IceBlast", 6: "Explosion"},
 
-    chibisprite: new URL("./../../../assets/sprites/heroes/chibi/Arin.png", import.meta.url).href
+    chibisprite: "./../../../assets/sprites/heroes/chibi/Arin.png"
   },
 
 
@@ -34,7 +34,7 @@ export const CharacterList = {
 
     skills: { 0: "Slash", 5: "FlameSlash", 6:"FinalSlash"},
 
-    chibisprite: new URL("./../../../assets/sprites/heroes/chibi/Ares.png", import.meta.url).href
+    chibisprite: "./../../../assets/sprites/heroes/chibi/Ares.png",
   },
 
 
@@ -74,26 +74,6 @@ export const CharacterList = {
 
     chibisprite: new URL("./../../../assets/sprites/heroes/chibi/Arceus.png", import.meta.url).href
   },
-
-
-  Ark: {
-    name: "Ark",
-    element: "light",
-    type: "HolyPaladin",
-    rarity: 5,
-
-    baseStats: { str: 10, def: 10, hlt: 10, res: 9, agi: 8, spd: 8 },
-    growthStats: { str: 1.5, def: 1.4, hlt: 1.3, res: 1.3 },
-
-    equipment: {
-      weapon: "WoodenSword"
-    },
-
-    skills: { 0: "Heal", 5: "HolySmite"},
-
-    chibisprite: new URL("./../../../assets/sprites/heroes/chibi/Ark.png", import.meta.url).href
-  },
-
 
   Aria: {
     name: "Aria",
