@@ -1,5 +1,6 @@
 import AudioManager from "../../../core/AudioManager/AudioManager.js";
 import { getstate, setstate } from "../../../core/SaveManager/savemange.js";
+import { headerImages } from "../../images/Images.js";
 
 export const AudioHeader = {
   render() {
@@ -13,8 +14,18 @@ export const AudioHeader = {
 
     const button = document.createElement("div");
     button.className = "widget-button";
-    button.textContent =
-      volume === 0 ? "🔇" : volume < 0.4 ? "🔈" : volume < 0.7 ? "🔉" : "🔊";
+    
+    const icon = document.createElement("img");
+
+    if (volume === 0) {
+      icon.src = headerImages.mute;
+    } else {
+      icon.src = headerImages.sound;
+    }
+
+    icon.className = "widget-icon";
+
+    button.appendChild(icon);
 
     const modal = this.renderModal(audio, state);
 

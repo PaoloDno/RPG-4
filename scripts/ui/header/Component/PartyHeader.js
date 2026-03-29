@@ -1,4 +1,5 @@
 import { getstate, setstate } from "../../../core/SaveManager/savemange.js";
+import { headerImages } from "../../images/Images.js";
 
 export const PartyHeader = {
 
@@ -8,7 +9,12 @@ export const PartyHeader = {
 
     const button = document.createElement("div");
     button.className = "widget-button";
-    button.textContent = "Party";
+
+    const icon = document.createElement("img");
+    icon.src = headerImages.party;
+    icon.className = "widget-icon";
+
+    button.appendChild(icon);
 
     const state = getstate();
     const modal = this.renderModal(state);

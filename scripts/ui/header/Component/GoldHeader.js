@@ -1,4 +1,5 @@
 import { getstate, setstate } from "../../../core/SaveManager/savemange.js";
+import { headerImages } from "../../images/Images.js";
 
 export const GoldHeader = {
 
@@ -10,9 +11,16 @@ export const GoldHeader = {
     wrapper.className = "header-wrapper-widget";
     wrapper.style.position = "relative";
 
+
+
     const button = document.createElement("div");
     button.className = "widget-button";
-    button.textContent = `bag`;
+
+    const icon = document.createElement("img");
+    icon.src = headerImages.bag;
+    icon.className = "widget-icon";
+
+    button.appendChild(icon);
 
     const modal = this.renderModal(state);
 

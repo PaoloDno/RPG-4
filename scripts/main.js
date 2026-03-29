@@ -76,7 +76,6 @@ document.addEventListener(
 // Header
 
 const headerManager = new HeaderManager(headerRoot);
-headerManager.register("logo", TimeHeader); // logo
 headerManager.register("party", PartyHeader); // party
 headerManager.register("gold", GoldHeader); //
 headerManager.register("audio", AudioHeader);
