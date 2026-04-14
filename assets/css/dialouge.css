@@ -1,39 +1,111 @@
 .dialogue-container {
   display: flex;
   position: relative;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   width: 100%;
-  height: 65vh;
+  height: 100%;
   padding: 20px;
   color: white;
-  font-family: Arial, sans-serif;
+  border-radius: inherit;
+  border: 1px white solid;
+  background-color: rgba(19, 13, 6, 0.822);
+  z-index: 11;
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .character {
-  width: 150px;
+  display: flex;
+  position: absolute;
+  width: 40%;
   height: 100%;
+  z-index: 12;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.left {
+  left: 10px;
+  bottom: 10px;
+}
+
+.right {
+  right: 10px;
+  bottom: 10px;
 }
 
 .character img {
-  width: 100%;
+  width: 80%;
   height: auto;
+  object-fit: cover;
+  object-position: bottom;
 }
 
 .dialogue-box {
-  flex: 1;
-  margin: 0 20px;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(90%, 900px);
+  min-height: 120px;
+
   background: rgba(0,0,0,0.6);
-  padding: 10px;
-  border-radius: 8px;
+  padding: 1rem;
+  border-radius: 12px;
+
+  z-index: 13;
 }
 
+
 .speaker {
+  display: flex;
+  position: absolute;
+  top: -10%;
+  left: 10%;
   font-weight: bold;
   margin-bottom: 5px;
+  font-size: 1.2rem;
+  z-index: 14;
 }
 
 .text {
   font-size: 1rem;
+}
+
+.dialouge-button {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 100px;
+  padding: 0.75rem;
+  background-color: black;
+  color: var(--accent-gold);
+  
+  border-radius: 1rem;
+  border: 1px white solid;
+  z-index: 15;
+}
+
+.dialouge-button:hover{
+  background-color: goldenrod;
+  color: rgb(31, 28, 28);
+}
+.dialouge-button:active{
+  background-color: rgb(100, 218, 32);
+  color: rgb(255, 251, 251);
+}
+
+@media (max-width: 768px) {
+  .text {
+    font-size: 0.85rem;
+  }
 }

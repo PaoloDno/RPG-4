@@ -19,6 +19,8 @@ export function generateEquipment(equipmentId, level) {
 
   const equipmentload = loadEquipment(equipmentId, level);
 
+  
+
   return {
     ...equipmentload,
   };
@@ -30,6 +32,7 @@ export function loadEquipment(equipmentId, level) {
   return {
     uId: generateId(),
     templateId: equipmentId,
+    equipped: false,
     name: template.name,
     slot: template.slot,
     rarity: template.rarity,

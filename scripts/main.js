@@ -21,6 +21,7 @@ subscribe(() => {
   headerManager.render();
 });
 
+
 // Register screens
 screens.register("title", TitleScreen);
 
@@ -43,7 +44,7 @@ document.addEventListener(
 
     setTimeout(() => {
       clickLocked = false;
-    }, 350);
+    }, 250);
   },
   true,
 );

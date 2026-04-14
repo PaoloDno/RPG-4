@@ -1,4 +1,17 @@
+:root {
+  /* Backgrounds */
+  --bg-background: rgb(19, 18, 24);
+  --bg-main: #0e1117; /* main screen background */
+  --bg-panel: #2b2315e0; /* panels / cards */
 
+  /* Accents */
+  --accent-gold: #e6c15a; /* RPG gold */
+  --accent-soft: #c9b46a;
+
+  /* Text */
+  --text-main: #f2f2f2;
+  --text-muted: #a0a6b3;
+}
 
 .title-screen-wrapper {
   display: flex;
@@ -22,9 +35,42 @@
   justify-content: center;
   min-width: 120px;
   height: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, 150%);
   text-transform: capitalize;
-  background: #000;
-  color: #ffffff;
+  background: var(--bg-main);
+  color: var(--accent-gold);
+  z-index: 12;
+  font-size: 1.2rem;
+  border: 2px goldenrod solid;
+  border-radius: 10%;
+}
+
+#load-btn {
+  position: absolute;
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(0%, 150%);
+  text-transform: capitalize;
+  background: var(--bg-main);
+  color: var(--accent-gold);
+  z-index: 12;
+  font-size: 1.2rem;
+  border: 2px goldenrod solid;
+  border-radius: 10%;
+}
+
+#start-btn:hover, #load-btn:hover {
+  background-color: var(--accent-gold);
+  color: var(--bg-main);
+  transition-duration: 400ms;
 }
 
 .title-screen-text {
@@ -33,9 +79,36 @@
   align-items: center;
   justify-content: center;
   top: 20%;
-  left: auto;
-  right: auto;
+  left: 12%;
+  width: 50%;
   color: goldenrod;
-  font-size: x-large;
+  font-size: 4rem;
   font-weight: bolder;
+  z-index: 11;
+  text-align: center;
+  text-shadow:
+    2px 2px 0 #000,
+    4px 4px 0 rgba(0, 0, 0, 0.87),
+    0 0 10px rgba(230, 193, 90, 0.6);
+}
+
+@media (max-width: 768px) {
+  #start-btn {
+    transform: translate(-115%, 150%);
+  }
+  #load-btn {
+    transform: translate(-115%, 260%);
+  }
+  .title-screen-text {
+    font-size: 2rem;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px rgba(230, 193, 90, 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(230, 193, 90, 0.9);
+  }
 }

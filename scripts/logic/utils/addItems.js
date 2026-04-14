@@ -1,7 +1,15 @@
-import { getstate, setstate } from "../SaveManager/savemange.js";
+
+import { getstate, setstate } from "../../core/SaveManager/savemange.js";
 import { generateEquipment } from "../equipment/generateEquipment.js";
+import { itemList } from "../item/consumableItems.js";
+import { ingredientList } from "../item/ingredientsItemsList.js";
+import keyItemList from "../item/keyItemList.js";
 
 /* GENERIC HELPERS */
+
+function findByKey(list, key) {
+  return list.find(i => i.key === key);
+}
 
 function ensureArray(arr) {
   return Array.isArray(arr) ? arr : [];
@@ -24,7 +32,7 @@ function addStackable(list = [], key, qty = 1) {
 function writeState(patch) {
   const state = getstate();
   setstate({ ...state, ...patch });
-}
+};
 
 /* GOLD */
 
@@ -36,7 +44,7 @@ export function stateAddGold(amount = 0) {
   });
 
   return amount;
-}
+};
 
 /* INGREDIENTS (STACKABLE) */
 
@@ -50,7 +58,9 @@ export function stateAddIngredient(key, qty = 1) {
       qty
     ),
   });
-}
+
+  return findByKey(ingredientList, key);
+};
 
 /* CONSUMABLE ITEMS (STACKABLE) */
 
@@ -64,7 +74,10 @@ export function stateAddItem(key, qty = 1) {
       qty
     ),
   });
-}
+
+  const item = findByKey(itemList, key);
+  return item ? { ...item, qty } : null;
+};
 
 /* KEY ITEMS (UNIQUE) */
 
@@ -78,15 +91,15 @@ export function stateAddKeyItem(key) {
     keyItems: [...keyItems, key],
   });
 
-  return key;
+  return findByKey(keyItemList, key);
 }
 
 /* EQUIPMENT (INSTANCE BASED) */
 
-export function stateAddEquipment(templateId) {
+export function stateAddEquipment(templateId, level = 1) {
   const state = getstate();
 
-  const newEquip = generateEquipment(templateId);
+  const newEquip = generateEquipment(templateId, level);
 
   writeState({
     inventory: [
@@ -95,8 +108,8 @@ export function stateAddEquipment(templateId) {
     ],
   });
 
-  return newEquip.instanceId;
-}
+  return newEquip;
+};
 
 /* UNIFIED LOOT ENTRY */
 
@@ -107,24 +120,25 @@ export function stateAddLoot(loot = {}) {
     result.gold = stateAddGold(loot.gold);
   }
 
-  if (loot.item) {
-    stateAddItem(loot.item.key, loot.item.qty ?? 1);
-  }
+    const qty = loot.qty ?? 1;
 
-  if (loot.ingredient) {
-    stateAddIngredient(
-      loot.ingredient.key,
-      loot.ingredient.qty ?? 1
-    );
-  }
+    switch (loot.type) {
+      case "consumable":
+        stateAddItem(item.key, qty);
+        break;
 
-  if (loot.keyItem) {
-    result.keyItem = stateAddKeyItem(loot.keyItem);
-  }
+      case "ingredient":
+        stateAddIngredient(item.key, qty);
+        break;
 
-  if (loot.equipment !== undefined) {
-    result.equipmentId = stateAddEquipment(loot.equipment);
-  }
+      case "keyItem":
+        result.keyItem = stateAddKeyItem(item.key);
+        break;
+
+      case "equipment":
+        result.equipmentId = stateAddEquipment(item.id);
+        break;
+    }
 
   return result;
-}
+};

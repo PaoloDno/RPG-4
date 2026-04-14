@@ -29,6 +29,7 @@ export const defaultPlayerGameState = {
       name: "Arin",
       class: "Mage",
       level: 1,
+      exp: 0,
       attributes: {
       hp,
       maxhp: hp,
@@ -47,7 +48,6 @@ export const defaultPlayerGameState = {
       }
       skills: [],
       equipment: {},
-      exp: 0,
     },
     */
   ],

@@ -15,10 +15,22 @@ export function subscribe(listener) {
 };
 
 function notify() {
-  listeners.forEach((listener) => listener(gamestate.active));
+  listeners.forEach((listener) => {
+   listener(gamestate.active);
+   console.log("listener",listener);
+});
+   
 };
 
-let gamestate = JSON.parse(localStorage.getItem(storageKey)) || {
+let gamestate;
+
+try {
+  gamestate = JSON.parse(localStorage.getItem(storageKey));
+} catch {
+  gamestate = null;
+}
+
+gamestate = gamestate || {
   active: structuredClone(defaultPlayerGameState),
   slots: [null, null, null]
 };
@@ -32,6 +44,15 @@ export function getStateParty () {
 export function getStateWorld() {
   return gamestate?.active?.world;
 };
+
+export function getStoryProgress() {
+  return gamestate?.active.world.progress;
+}
+
+export function AddProgress() {
+  gamestate.active.world.progress++;
+  notify();
+}
 
 export function setstate(partial) {
   gamestate.active = { ...gamestate.active, ...partial };

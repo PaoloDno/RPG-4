@@ -1,6 +1,6 @@
 export function showNotification(config) {
   let resolvePromise;
-
+  const app = document.getElementById("modal-root");
   const promise = new Promise((resolve) => {
     resolvePromise = resolve;
   });

@@ -1,0 +1,222 @@
+.start-screen-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* panels */
+
+.start-screen-main-panel {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  gap: 1rem;
+  padding: 0.25rem;
+}
+
+.start-screen-main-panel-1 {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 50%;
+  height: 200px;
+  gap: 0.25rem;
+  padding: 0.25rem;
+}
+
+.start-screen-buttons-panel {
+ position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+#create-party-btn, #deselect-party-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 100px;
+  padding: 0.25rem;
+  background-color: black;
+  color: var(--accent-gold);
+  
+  border-radius: 1rem;
+  border: 1px white solid;
+}
+
+#hero-selection {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 50%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#selected-hero-display {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  padding-top: 1rem;
+  align-items: center;
+  justify-content: start;
+  padding: 0.5rem;
+  width: 100%;
+  height: 85px;
+  gap: 0.1rem;
+  background-color: rgba(150, 131, 131, 0.144);
+}
+
+/* panel 2 */
+
+.start-screen-main-panel-2 {
+  display: flex;
+  position: relative;
+  width: 50%;
+  gap: 1rem;
+  padding: 0.25rem;
+}
+
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  background-color: rgba(48, 34, 4, 0.13);
+  font-size: 0.6rem;
+  border-radius: 1rem;
+  border: 1px white solid;
+  padding: 0.25rem;
+  width: 45%;
+  height: 160px;
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+  cursor: pointer;
+}
+
+.hero-card input[type="checkbox"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hero-card:has(input:disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/*
+.hero-card input:checked ~ * {
+  //
+}
+ affects all content */
+
+.hero-card input:checked ~ .hero-display-box {
+  border: 2px solid gold;
+}
+
+.hero-card input:checked ~ div {
+  color: gold;
+}
+
+.hero-card:has(input:checked) {
+  background-color: rgba(133, 75, 42, 0.5);
+  transform: scale(1.01);
+  box-shadow: 0 0 8px gold;
+}
+
+.hero-card-small {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  background-color: rgba(75, 64, 40, 0.274);
+  font-size: 0.6rem;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  width: 23%;
+  height: 70px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hero-display-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  border: 2px yellow;
+  border-radius: 0.25rem;
+  background-color: rgba(241, 237, 233, 0.178);
+}
+
+.hero-display-box-small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+
+.select {
+  display: flex;
+  width: 100%;
+  height: 10%;
+}
+
+@media (max-width: 768px) {
+  .start-screen-main-panel {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .start-screen-main-panel-1, .start-screen-main-panel-2 {
+    width: 100%;
+    gap: 0.2rem;
+  }
+  .start-screen-main-panel-1{
+    height: 150px;
+  }
+  .start-screen-buttons-panel {
+    display: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform-origin: -50% -50%;
+    gap: 0.2rem;
+  }
+}
+
+@media (orientation: portrait) {
+.start-screen-main-panel {
+    flex-direction: column;
+  }
+  .start-screen-main-panel-1, .start-screen-main-panel-2 {
+    width: 100%;
+  }
+  .start-screen-buttons-panel {
+    display: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform-origin: -50% -50%;
+  }
+
+}

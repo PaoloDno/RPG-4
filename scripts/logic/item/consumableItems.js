@@ -1,3 +1,5 @@
+
+
 export const itemList = [
   {
     id: 0,
@@ -8,11 +10,14 @@ export const itemList = [
     slot: "item",
     rarity: 3,
     element: "base",
+    price: 80,
+    active: false,
     activate: {
       healHp: 100,
       healMp: 100,
       healSp: 100,
-    }
+    },
+    sprite: new URL ("./../../../assets/sprites/items/consumable/VeggieSoup.png", import.meta.url).href,
   },
   {
     id: 1,
@@ -23,9 +28,12 @@ export const itemList = [
     slot: "item",
     rarity: 3,
     element: "base",
+    price: 50,
+    active: true,
     activate: {
-      healHp: 500,
-    }
+      healHp: 100,
+    },
+    sprite: new URL ("./../../../assets/sprites/items/consumable/SmallHp.png", import.meta.url).href,
   },
   {
     id: 2,
@@ -35,9 +43,12 @@ export const itemList = [
     description: "potion",
     rarity: 3,
     element: "base",
+    price: 30,
+    active: true,
     activate: {
-      healMp: 500,
-    }
+      healMp: 120,
+    },
+    sprite: new URL ("./../../../assets/sprites/items/consumable/SmallMana.png", import.meta.url).href,
   },
   {
     id: 3,
@@ -47,8 +58,11 @@ export const itemList = [
     description: "potion",
     rarity: 3,
     element: "base",
+    price: 30,
+    active: true,
     activate: {
-      healSp: 500,
-    }
+      healSp: 120,
+    },
+    sprite: new URL ("./../../../assets/sprites/items/consumable/SmallSp.png", import.meta.url).href,
   },
 ]

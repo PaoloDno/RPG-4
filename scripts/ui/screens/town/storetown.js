@@ -1,5 +1,6 @@
 import EventBus from "../../../core/eventbus.js";
 import { timePlusOne } from "../../../logic/time/time.js";
+import { bgIMAGES } from "../../images/Images.js";
 import ScreenManager from "../../screenmanager.js";
 import { TownScreen } from "./townscreen.js";
 
@@ -22,10 +23,14 @@ const StoreTownScreen = {
 
   render(app) {
     app.innerHTML = `
-    <div class="full in-center col">
-      <h1>🌟 Store Tower 🌟</h1>
-      <button id="back-btn">Exit</button>
+    <div class="town-screen-wrapper">
+      <div class="town-screen-container" style="background-image: url('${bgIMAGES.store || ""}')">  
+      <h1> Town Store </h1>
+      <button id="rest-inn-btn" class="town-screen-button">Buy</button>
+      <button id="save-inn-btn" class="town-screen-button">Sell</button>
+      <button id="back-btn" class="town-screen-button">Exit</button>
       </div>
+    </div>
     `;
 
     document.getElementById("back-btn").addEventListener("click", () => {

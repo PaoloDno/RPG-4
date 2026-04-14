@@ -8,7 +8,7 @@ import { Chapter0 } from "../../game_content/Stories/chapter0.js";
 import DialougeScreen from "./dialoguescreen.js";
 import { showNotification } from "../notifications/notificationModal.js";
 import { CharacterList } from "../../logic/characters/characterList.js";
-
+import { InitializeheroPartyBaseAttributes, InitializeHeroPartyEquipsAttributes } from "../../logic/characters/InitializeHeroParty.js";
 
 const app = document.getElementById("game-view");
 const screens = new ScreenManager(app);
@@ -29,16 +29,18 @@ function renderHeroCards(keys) {
     .map((key) => {
       const hero = CharacterList[key];
       return `
-        <div class="hero-card">
+        <label class="hero-card">
           <input type="checkbox" id="hero-${key}" value="${key}" />
+
           <div class="hero-display-box">
             <img src="${hero.chibisprite}" alt="${hero.name}" class="flex full in-center"/>
           </div>
-          <label for="hero-${key}" class="flex col w-full in-center">
-            <strong>${hero.name} - ${hero.type}</strong>
+
+          <div class="flex col w-full in-center">
+            <p><strong>${hero.name} - ${hero.type}</strong></p>
             <span>${"⭐".repeat(hero.rarity)}</span>
-          </label>
-        </div>
+          </div>
+        </label>
       `;
     })
     .join("");
@@ -54,7 +56,7 @@ function renderSelectedHeroes(keys) {
           <div class="hero-display-box-small">
             <img src="${hero.chibisprite}" alt="${hero.name}" class="flex full in-center"/>
           </div>
-          <strong>${hero.name}</strong>
+          <p><strong>${hero.name}</strong></p>
           <span>${"⭐".repeat(hero.rarity)}</span>
         </div>
       `;
@@ -94,25 +96,30 @@ const StartScreen = {
   },
 
   render(app) {
+    app.innerHTML = "";
+    
     const allHeroKeys = Object.keys(CharacterList);
 
     // initial render
     app.innerHTML = `
-      <div class="full in-center col">
-        <h1>🌟 My RPG Platform 🌟</h1>
-        <p>PICK 4 heroes</p>
-        <p>Total stars must not exceed 16</p>
-        <p id="star-counter">Stars: 0 / 16</p>
+      <div class="start-screen-wrapper">
+        <h3 class="text-center">By playful fate this heroes meet and form a party to climb the tower together</h3>
+        <p>PICK 4 heroes Total stars must not exceed</p>
+        <p id="star-counter">16 Stars: 0 / 16</p>
+        <div class="start-screen-main-panel">
+          <div class="start-screen-main-panel-1">
+            <div id="selected-hero-display" class="flex gap"></div>
 
-        <div id="selected-hero-display" class="flex gap"></div>
-
-        <div class="flex row gap">
-          <button id="create-party-btn">Create Party</button>
-          <button id="deselect-party-btn">Deselect All</button>
-        </div>
-
-        <div id="hero-selection">
-          ${renderHeroCards(allHeroKeys)}
+            <div class="start-screen-buttons-panel">
+              <button id="create-party-btn">Create Party</button>
+              <button id="deselect-party-btn">Deselect All</button>
+            </div>
+          </div>
+          <div class="start-screen-main-panel-2">  
+            <div id="hero-selection">
+              ${renderHeroCards(allHeroKeys)}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -163,10 +170,14 @@ const StartScreen = {
           alert("Pick at least one hero!");
           return;
         }
-        const initalizedCharacters = await InstantializeCharacter([...this.selectedHeroes]);
+        const initalizedCharacters = await InitializeheroPartyBaseAttributes([...this.selectedHeroes]);
         setstate({ party: initalizedCharacters });
+        console.log("init", initalizedCharacters);
+        const initalizedCharactersEquipments = await InitializeHeroPartyEquipsAttributes(initalizedCharacters);
+        console.log("initalizedCharactersEquipments", initalizedCharactersEquipments);
         const logg = getstate();
         console.log("gamestat:", logg);
+
         //EventBus.emit("CREATE_PARTY", { heroes: this.selectedHeroes });
         console.log("Selected heroes:", this.selectedHeroes);
         screens.show("scene_0");

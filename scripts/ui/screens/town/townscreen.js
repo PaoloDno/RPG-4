@@ -1,5 +1,9 @@
 import EventBus from "../../../core/eventbus.js";
+import { getStateWorld } from "../../../core/SaveManager/savemange.js";
+import { chapter0_1 } from "../../../game_content/Stories/chapter0_1.js";
+import { bgIMAGES } from "../../images/Images.js";
 import ScreenManager from "../../screenmanager.js";
+import DialougeScreen from "../dialoguescreen.js";
 import GuildTownScreen from "./guildtown.js";
 import InnTownScreen from "./inntown.js";
 import StoreTownScreen from "./storetown.js";
@@ -9,13 +13,18 @@ export const TownScreen = {
   enter(payload) {
     console.log("setState player location town");
 
-    const app = document.getElementById("app");
+    const app = document.getElementById("game-view");
     const screens = new ScreenManager(app);
+    
+    
+
 
     screens.register("Go_to_inn", InnTownScreen);
     screens.register("Go_to_store", StoreTownScreen);
     screens.register("Go_to_guild", GuildTownScreen);
     screens.register("Go_to_tower", TowerTownScreen);
+
+    screens.register("scene_0.1", DialougeScreen(chapter0_1));
 
     EventBus.on("Go_Inn", () => {
       console.log("Player clicked Start! Transition to next screen here...");
@@ -43,18 +52,29 @@ export const TownScreen = {
       EventBus.logActiveEvents();
     });
 
+    EventBus.on("Story0_1", () => {
+      screens.show("scene_0.1");
+    })
 
   },
 
-  render(app) {
+  render() {
+    const app = document.getElementById("game-view");
     app.innerHTML = `
-    <div class="full in-center col">
-      <button id="inn_1-btn">Go to Inn</button>
-      <button id="store_1-btn">Go to Store</button>
-      <button id="guild_1-btn">Go to Guild</button>
-      <button id="tower_1-btn">Go to Tower</button>
+    <div class="town-screen-wrapper" >
+    <div class="town-screen-container" style="background-image: url('${bgIMAGES.town || ""}')">
+      <h3>Town</h3>
+      <button id="inn_1-btn" class="town-screen-button">Go to Inn</button>
+      <button id="store_1-btn" class="town-screen-button">Go to Store</button>
+      <button id="guild_1-btn" class="town-screen-button">Go to Guild</button>
+      <button id="tower_1-btn" class="town-screen-button">Go to Tower</button>
+    </div>
     </div>
     `;
+
+    const world = getStateWorld();
+
+    const progress = world.progress;
 
     document.getElementById("inn_1-btn").addEventListener("click", () => {
       // Emit an event when the player clicks "Start"
@@ -63,7 +83,12 @@ export const TownScreen = {
 
     document.getElementById("store_1-btn").addEventListener("click", () => {
       // Emit an event when the player clicks "Start"
+      console.log(progress); // progress = 0
+      if (progress > 1) {
       EventBus.emit("Go_Store");
+      } else {
+        EventBus.emit("Story0_1");
+      }
     });
 
     document.getElementById("guild_1-btn").addEventListener("click", () => {

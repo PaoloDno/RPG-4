@@ -1,6 +1,7 @@
 import { getStateParty } from "../../core/SaveManager/savemange.js";
-import { PORTRAIT_DIALOUGE } from "../../game_content/Stories/portraitdialouge.js";
+import { PORTRAIT_DIALOUGE } from "../../game_content/Stories/portraitDialouge.js";
 import { getHeroResponse } from "../../game_content/Stories/responseList.js";
+import { storyPortraitImages } from "../images/Images.js";
 
 export default function DialougeScreen(script) {
   return {
@@ -40,10 +41,10 @@ export default function DialougeScreen(script) {
 
     //   NORMAL DIALOGUE
     renderDialogue(entry) {
-      const app = document.getElementById("app");
+      const app = document.getElementById("game-view");
 
-      const leftImg = PORTRAIT_DIALOUGE[entry.leftChar] || "";
-      const rightImg = PORTRAIT_DIALOUGE[entry.rightChar] || "";
+      const leftImg = entry.leftImg || "";
+      const rightImg = entry.rightImg || "";
 
       app.innerHTML = `
         <div class="dialogue-container" style="background-image: url('${entry.background || ""}')">
@@ -54,7 +55,7 @@ export default function DialougeScreen(script) {
           <div class="dialogue-box">
             <p class="speaker">${entry.speakerName || "System"}</p>
             <p class="text">${entry.text}</p>
-            <button id="next-btn">Next</button>
+            <button id="next-btn"  class="dialouge-button">Next</button>
           </div>
 
           <div class="character right">
@@ -75,14 +76,14 @@ export default function DialougeScreen(script) {
 
     //   SYSTEM MESSAGE
     async renderSystem(text, background, callback) {
-      const app = document.getElementById("app");
+      const app = document.getElementById("game-view");
 
       app.innerHTML = `
-        <div class="dialogue-container system-message"
+        <div class="dialogue-container "
              style="background-image: url('${background || ""}')">
-          <div class="dialogue-box">
+          <div class="dialogue-box system-message">
             <p class="text">${text}</p>
-            <button id="next-btn">Next</button>
+            <button id="next-btn" class="dialouge-button">Next</button>
           </div>
         </div>
       `;
@@ -105,7 +106,7 @@ export default function DialougeScreen(script) {
        PARTY RESPONSE
     ========================= */
     renderPartyResponse(entry) {
-      const app = document.getElementById("app");
+      const app = document.getElementById("game-view");
 
       const party = getStateParty();
 
@@ -121,8 +122,7 @@ export default function DialougeScreen(script) {
 
       const heroName = `${Order[entry.speakerName]}`;
 
-      const heroImg =
-        PORTRAIT_DIALOUGE[`${heroName}${entry.rightChar}`] || "";
+      const heroImg = storyPortraitImages[heroName] || "";
 
       const text = String(
         getHeroResponse(entry.text_response, heroName) || ""
@@ -134,8 +134,8 @@ export default function DialougeScreen(script) {
 
           <div class="character left">
             ${
-              entry.leftChar
-                ? `<img src="${PORTRAIT_DIALOUGE[entry.leftChar] || ""}">`
+              entry.leftImg
+                ? `<img src="${leftImg} || ""}">`
                 : ""
             }
           </div>
@@ -143,7 +143,7 @@ export default function DialougeScreen(script) {
           <div class="dialogue-box">
             <p class="speaker">${heroName}</p>
             <p class="text">${text}</p>
-            <button id="next-btn">Next</button>
+            <button id="next-btn" class="dialouge-button">Next</button>
           </div>
 
           <div class="character right">
