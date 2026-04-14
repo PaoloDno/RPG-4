@@ -1,6 +1,6 @@
 import EventBus from "../../../core/eventbus.js";
 import { getStateWorld } from "../../../core/SaveManager/savemange.js";
-import { chapter0_1 } from "../../../game_content/Stories/chapter0_1.js";
+import { chapter0_0, chapter0_1, chapter0_2, chapter0_3, chapter0_4 } from "../../../game_content/Stories/chapter0_n.js";
 import { bgIMAGES } from "../../images/Images.js";
 import ScreenManager from "../../screenmanager.js";
 import DialougeScreen from "../dialoguescreen.js";
@@ -15,16 +15,17 @@ export const TownScreen = {
 
     const app = document.getElementById("game-view");
     const screens = new ScreenManager(app);
-    
-    
-
 
     screens.register("Go_to_inn", InnTownScreen);
     screens.register("Go_to_store", StoreTownScreen);
     screens.register("Go_to_guild", GuildTownScreen);
     screens.register("Go_to_tower", TowerTownScreen);
 
+    screens.register("scene_0.0", DialougeScreen(chapter0_0));
     screens.register("scene_0.1", DialougeScreen(chapter0_1));
+    screens.register("scene_0.2", DialougeScreen(chapter0_2));
+    screens.register("scene_0.3", DialougeScreen(chapter0_3));
+    screens.register("scene_0.4", DialougeScreen(chapter0_4));
 
     EventBus.on("Go_Inn", () => {
       console.log("Player clicked Start! Transition to next screen here...");
@@ -52,9 +53,21 @@ export const TownScreen = {
       EventBus.logActiveEvents();
     });
 
+    EventBus.on("Story0_0", () => {
+      screens.show("scene_0.0");
+    });
     EventBus.on("Story0_1", () => {
       screens.show("scene_0.1");
-    })
+    });
+    EventBus.on("Story0_2", () => {
+      screens.show("scene_0.2");
+    });
+    EventBus.on("Story0_3", () => {
+      screens.show("scene_0.3");
+    });
+    EventBus.on("Story0_4", () => {
+      screens.show("scene_0.4");
+    });
 
   },
 

@@ -1,5 +1,5 @@
-
 import { getstate, setstate } from "../../core/SaveManager/savemange.js";
+import { showNotification } from "../../ui/notifications/notificationModal.js";
 import { generateEquipment } from "../equipment/generateEquipment.js";
 import { itemList } from "../item/consumableItems.js";
 import { ingredientList } from "../item/ingredientsItemsList.js";
@@ -8,7 +8,7 @@ import keyItemList from "../item/keyItemList.js";
 /* GENERIC HELPERS */
 
 function findByKey(list, key) {
-  return list.find(i => i.key === key);
+  return list.find((i) => i.key === key);
 }
 
 function ensureArray(arr) {
@@ -16,12 +16,10 @@ function ensureArray(arr) {
 }
 
 function addStackable(list = [], key, qty = 1) {
-  const existing = list.find(i => i.key === key);
+  const existing = list.find((i) => i.key === key);
 
   if (existing) {
-    return list.map(i =>
-      i.key === key ? { ...i, qty: i.qty + qty } : i
-    );
+    return list.map((i) => (i.key === key ? { ...i, qty: i.qty + qty } : i));
   }
 
   return [...list, { key, qty }];
@@ -32,7 +30,7 @@ function addStackable(list = [], key, qty = 1) {
 function writeState(patch) {
   const state = getstate();
   setstate({ ...state, ...patch });
-};
+}
 
 /* GOLD */
 
@@ -44,7 +42,7 @@ export function stateAddGold(amount = 0) {
   });
 
   return amount;
-};
+}
 
 /* INGREDIENTS (STACKABLE) */
 
@@ -52,15 +50,11 @@ export function stateAddIngredient(key, qty = 1) {
   const state = getstate();
 
   writeState({
-    ingredients: addStackable(
-      ensureArray(state.ingredients),
-      key,
-      qty
-    ),
+    ingredients: addStackable(ensureArray(state.ingredients), key, qty),
   });
 
   return findByKey(ingredientList, key);
-};
+}
 
 /* CONSUMABLE ITEMS (STACKABLE) */
 
@@ -68,16 +62,12 @@ export function stateAddItem(key, qty = 1) {
   const state = getstate();
 
   writeState({
-    items: addStackable(
-      ensureArray(state.items),
-      key,
-      qty
-    ),
+    items: addStackable(ensureArray(state.items), key, qty),
   });
 
   const item = findByKey(itemList, key);
   return item ? { ...item, qty } : null;
-};
+}
 
 /* KEY ITEMS (UNIQUE) */
 
@@ -96,49 +86,62 @@ export function stateAddKeyItem(key) {
 
 /* EQUIPMENT (INSTANCE BASED) */
 
-export function stateAddEquipment(templateId, level = 1) {
+export async function stateAddEquipment(templateId, level = 1) {
   const state = getstate();
 
   const newEquip = generateEquipment(templateId, level);
 
   writeState({
-    inventory: [
-      ...ensureArray(state.inventory),
-      newEquip,
-    ],
+    inventory: [...ensureArray(state.inventory), newEquip],
   });
+  console.log("GOLD", newEquip);
+      await showNotification({
+        objectImage: newEquip.sprite,
+        speaker: "system",
+        text: `Earned ${newEquip.name} - level ${newEquip.level}`,
+        header: "Added to Inventory"
+      }).promise;
 
   return newEquip;
-};
+}
 
 /* UNIFIED LOOT ENTRY */
 
-export function stateAddLoot(loot = {}) {
+export async function stateAddLoot(loot = {}) {
   const result = {};
+  const qty = loot.qty ?? 1;
 
   if (loot.gold) {
     result.gold = stateAddGold(loot.gold);
+    console.log("GOLD", result.gold);
+    await showNotification({ text: `Earned` }).promise;
   }
 
-    const qty = loot.qty ?? 1;
+  switch (loot.type) {
+    case "consumable":
+      result.item = stateAddItem(loot.key, qty);
+      console.log(result.item);
+      await showNotification({ text: `Earned` }).promise;
+      break;
 
-    switch (loot.type) {
-      case "consumable":
-        stateAddItem(item.key, qty);
-        break;
+    case "ingredient":
+      result.ingredient = stateAddIngredient(loot.key, qty);
+      console.log(result.ingredient);
+      await showNotification({ text: `Earned` }).promise;
+      break;
 
-      case "ingredient":
-        stateAddIngredient(item.key, qty);
-        break;
+    case "keyItem":
+      result.keyItem = stateAddKeyItem(loot.key);
+      console.log(result.keyItem);
+      await showNotification({ text: `Earned` }).promise;
+      break;
 
-      case "keyItem":
-        result.keyItem = stateAddKeyItem(item.key);
-        break;
-
-      case "equipment":
-        result.equipmentId = stateAddEquipment(item.id);
-        break;
-    }
+    case "equipment":
+      result.equipment = stateAddEquipment(loot.templateId, loot.level);
+      console.log("GOLD", result.equipment);
+      await showNotification({ text: `Earned` }).promise;
+      break;
+  }
 
   return result;
-};
+}

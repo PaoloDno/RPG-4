@@ -28,12 +28,13 @@ export function showNotification(config) {
   const box = modal.querySelector(".notification-box");
   const backdrop = modal.querySelector(".notification-backdrop");
 
-  function setContent({ text, speaker, portrait }) {
+  function setContent({ text, speaker, portrait, objectImage }) {
     textEl.textContent = text || "";
 
     headerEl.innerHTML = speaker
       ? `
         ${portrait ? `<img src="${portrait}" class="notification-img" />` : ""}
+        ${objectImage ? `<img src="${objectImage}" class="notification-obj-img" />` : ""}
         <span class="notification-speaker">${speaker}</span>
       `
       : "";

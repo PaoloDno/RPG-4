@@ -102,9 +102,7 @@ export default function DialougeScreen(script) {
       });
     },
 
-    /* =========================
-       PARTY RESPONSE
-    ========================= */
+    // PARTY RESPONSE
     renderPartyResponse(entry) {
       const app = document.getElementById("game-view");
 

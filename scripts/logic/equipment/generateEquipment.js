@@ -38,8 +38,10 @@ export function loadEquipment(equipmentId, level) {
     rarity: template.rarity,
     element: template.element,
     skill: template.skill,
+    price: Math.floor(((template.rarity * template.rarity) * 10) + (level * 5)),
     level,
     stats: calculateStats(template, level),
+    sprite: template.sprite,
   };
 };
 

@@ -5,7 +5,7 @@ export const HERO_RESPONSE_LIST = {
 
     Arin: "Nice to meet everyone. Im Arin, a gradute of Northen Magic Academy",
     Ares: "Hello Nice to meet everyone! Im Ares, a proud warrior of southern tribe .",
-    Asa: "*yawn* *stretches* domo, In Nin- *snores*",
+    Asa: "Domo, Im Asa. Im a Ass- Ninja.",
     Arceus: "Grace the lord, Im Arceus of Holy Temple",
     Aria: "The wind feels nice today. Opps! Are we Introducing ourselves! Hi Im Aria, Huntress",
   },
@@ -14,40 +14,78 @@ export const HERO_RESPONSE_LIST = {
   1: {
     default: "Ready whenever wherever the danger.",
 
-    Arin: "Well, I'm excited for the danger",
+    Arin: "Oh thank you sir. perhaps youve mistaken for a civilian",
     Ares: "As long i keep healthy body. warrior has nothing to fear! even the Tower!",
-    Asa: "*yawn* *stretches* dont worry, if something blocks our path, ELIMINATE! *yawn*",
-    Arceus: "I am thankful for your warning. I shall pray more for our safe travels",
+    Asa: "... ",
+    Arceus: "For that very reason that the church dispatch a priest like me to aid people in climbing the tower",
     Aria: "I know what im signed up for! Its gonna be an adventure!",
   },
 
+  
   2: {
-    default: "Ready whenever you are.",
+    default: "Ready whenever wherever the danger.",
 
-    Arin: "Thanks! Old Man but trust this girl more willya!",
-    Ares: "Despite all of that! A arrior has nothing to fear!",
-    Asa: "*snoring*",
-    Arceus: "I shall pray for your safe travels too. I give you my thanks",
-    Aria: "Geez. I know. I know old geezer. stop telling me.. hmp",
+    Arin: "Well, I'm excited for the danger, thats what Ive preoared for years",
+    Ares: "Sir. Im a warrior its my profession to face danger and let the citizen live comfortably",
+    Asa: "... Are you talking to me?",
+    Arceus: "I humbly thank a veteran for his generous warning. I shall pray more for our safe travels",
+    Aria: "Stop worrying about youngin! OldMan we will be fine! thats not good for your health, you know.",
+  },
+
+  3: {
+    default: "Ohh Geez",
+
+    Arin: "Ah! Oh hello you surprise me. ehh.. d-dont cry kid",
+    Ares: "Ahh! I feel a strong knight just give me powerful lariat. Kid your very strong but your too reckless * smile",
+    Asa: "Ahh! *tumbles down. face in the ground.. Hey! Kid!",
+    Arceus: "Ah! hello young soul, Im a priest I like kids",
+    Aria: "Wops! *giggles Sneak Attack! Sneak Attack!",
+  },
+  
+  4: {
+    default: "Ohh Geez",
+
+    Arin: "Eh. I guess I have to help you kid find your parents",
+    Ares: "hey kid. dont worry we will look for your parents",
+    Asa: "Well. I guess we need to look for your parents to ask them for compensation",
+    Arceus: "Oh! dont worry kid ill help you find your parents! I like children",
+    Aria: "Your lost arent you.. lets look for your Ma and Pa. Im lost myself too",
+  },
+  
+  5: {
+    default: "Ohh Geez",
+
+    Arin: "Oh take care kid dont get lost again.",
+    Ares: "I guess this is goodbye brave warrior.",
+    Asa: " ... Hooray.., No thanks needed.. I mean I dont need it because I ask for compesation for my time!",
+    Arceus: "By the grace of Holy Emp- .. what you say? you ask me begone immmediately",
+    Aria: "Them are you sure? *shouts: Helloo! Are you this missing kids' parents?!! Ooh Youre right kid its your parents",
+  },
+  
+  6: {
+    default: "Ohh Geez",
+
+    Arin: "Its fine. Im just relieved we found you before its get too dark",
+    Ares: "its my duty to help. Im happy to help",
+    Asa: " pay up please ... . ....",
+    Arceus: "noooOOO.. Goodness  grace of holy Empire..! I just want to help! such prejudice Is A blaspemy!! ,, *argues more",
+    Aria: "Them are you sure? *shouts: Helloo! Are you this missing kids' parents?!! Ooh Youre right kid its your parents",
+  },
+
+  
+  7: {
+    default: "Ohh Geez",
+
+    Arin: "Its fine. Im just relieved we found you before its get too dark",
+    Ares: "its my duty to help. Im happy to help",
+    Asa: " pay up please ... . ....",
+    Arceus: "noooOOO.. Goodness  grace of holy Empire..! I just want to help! such prejudice Is A blaspemy!! ,, *argues more",
+    Aria: "Them are you sure? *shouts: Helloo! Are you this missing kids' parents?!! Ooh Youre right kid its your parents",
   },
 
 
-3: {
-    default: "Ready whenever you are.",
 
-    Arin: "Well, I'm excited for today.",
-    Ares: "A healthy warrior is a good warrior.",
-    Asa: "*yawn* *stretches*",
-    Arceus: "*praying quietly*",
-    Ark: "Let us proceed with honor.",
-    Aria: "The wind feels nice today.",
-    Bach: "Another day, another battle.",
-    Billy: "Hope there are good targets today.",
-    Bea: "May light guide us.",
-    Boris: "Stay safe, everyone.",
-    Cain: "Let's take things one step at a time.",
-    Cheerios: "*happy wolf noises*"
-  },
+
 };
 
 
